@@ -13,7 +13,10 @@
     <div class="form-row">
         <div class="form-group col-md-8">
             <label for="nome">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome">
+            <input type="text" class="form-control" id="nome" name="nome" th:classappend="${#fields.hasErrors('usuario.nome')}? is-invalid">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('usuario.nome')}" th:errors="*{usuario.nome}">
+                Digite um nome.
+            </div>
         </div>
 
         <div class="form-group col-md-4">
