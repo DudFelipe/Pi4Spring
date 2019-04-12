@@ -1,0 +1,203 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>PetShop TADES</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<div class="wrapper">
+    <div id="content">
+        <nav class="navbar navbar-default">
+            <div style="font-size: 20px; text-align: center;">Gerenciar Usuários</div>
+        </nav>
+
+
+
+        <div style="margin-bottom: 15px;">
+            <button type="button" class="btn btn-secondary btn-lg" id="liberacadastro">Cadastro</button>
+            <button type="button" class="btn btn-secondary btn-lg" id="liberapesquisa">Listar</button>
+        </div>
+
+        <div id="cadastro">
+
+
+            <form method="post">
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label for="nome">Nome</label>
+                        <input type="text" class="form-control" id="nome" name="nome" th:field="${usuario.nome}">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="calendario">Data de Nascimento</label>
+                        <input type="date" class="form-control" id="calendario" name="nascimento" th:field="${usuario.nascimento}">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="cpf">CPF</label>
+                        <input type="text" class="form-control" id="cpf" name="cpf" th:field="${usuario.cpf}">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="inputStateSexo">Sexo</label>
+                        <select id="inputStateSexo" class="form-control" name="sexo">
+                            <option>Selecione...</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Feminino</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group col-md-6">
+                        <label for="rg">RG</label>
+                        <input type="text" class="form-control" id="rg" name="rg" th:field="${usuario.rg}">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="tipoacesso">Tipo Acesso</label>
+                        <select id="tipoacesso" class="form-control" name="tipoacesso">
+                            <option selected>Selecione...</option>
+                            <option value="1">Cliente</option>
+                            <option value="2">Funcionario</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="telefone">Telefone</label>
+                        <input type="text" class="form-control" id="telefone" name="telefone" th:field="${usuario.telefone}">
+                    </div>
+
+                    <div class="form-group col-md-3">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="endereco">Endereço</label>
+                        <input type="text" class="form-control" id="endereco" name="endereco" th:field="${usuario.endereco}">
+                    </div>
+
+
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="email" name="email" th:field="${usuario.email}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="senha">Senha</label>
+                        <input type="password" class="form-control" id="senha" name="senha" th:field="${usuario.senha}">
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                    </div>
+                    <div class="form-group col-md-4 text-center">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Cadastrar</button>
+                    </div>
+                    <div class="form-group col-md-4">
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+        <div id="pesquisa" style="display: none">
+
+            <table class="table" id="tabelaservicos">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">CPF</th>
+                    <th scope="col">RG</th>
+                    <th scope="col">Data Nascimento</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Endereço</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Excluir</th>
+                </thead>
+                <tbody>
+
+                    <tr th:each="usuario : ${usuarios}">
+                        <td scope="row" th:text="${usuario.idUsuario}"></td>
+                        <td th:text="${usuario.nome}"></td>
+                        <td th:text="${usuario.cpf}"></td>
+                        <td th:text="${usuario.rg}"></td>
+                        <td th:text="${usuario.nascimento}"></td>
+                        <td th:text="${usuario.telefone}"></td>
+                        <td th:text="${usuario.email}"></td>
+                        <td th:text="${usuario.endereco}"></td>
+
+                        <td><a th:href="@{/admin/alterarUsuario/{id}(id=${usuario.idUsuario})}">Alterar</a></td>
+                        <td><a th:href="@{/admin/excluirUsuario/{id}(id=${usuario.idUsuario})}">Excluir</a></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+</div>
+
+<script src="assets/js/jquery-1.12.0.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="assets/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="assets/js/jquery.dataTables.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="assets/css/jquery-ui.css" />
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //$("#calendario").datepicker();
+        $( "#calendario" ).datepicker( "option", "dateFormat", "dd/mm/yy");
+        $('#tabelaservicos').DataTable({
+            "language": {
+                "lengthMenu": "Mostrando _MENU_ resultados por página",
+                "zeroRecords": "Nada encontrado - desculpe.",
+                "infoEmpty": "Não há dados para mostrar",
+                "infoFiltered": "(filtrado no total de _MAX_ resultados)",
+                "search": "Procurar: ",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "paginate": {
+                    "first": "Primeiro",
+                    "last": "Último",
+                    "next": "Próximo",
+                    "previous": "Anterior"
+                },
+            }
+        });
+    });
+    $("#liberacadastro").on("click", function () {
+        $("#cadastro").show();
+        $("#pesquisa").hide();
+    });
+    $("#liberapesquisa").on("click", function () {
+        $("#cadastro").hide();
+        $("#pesquisa").show();
+    });
+</script>
+</body>
+</html>
