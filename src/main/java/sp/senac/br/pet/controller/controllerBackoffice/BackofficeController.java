@@ -1,6 +1,9 @@
 package sp.senac.br.pet.controller.controllerBackoffice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,7 +31,7 @@ public class BackofficeController {
     public ModelAndView usuariosBackoffice(){
         ModelAndView mv = new ModelAndView("usuariosBackoffice");
 
-        List<Usuario> usuarios = usuarioRepository.findAll();
+        List<Usuario> usuarios = usuarioRepository.buscaUsuariosAtivos();
 
         mv.addObject("usuarios", usuarios);
         mv.addObject("usuario", new Usuario());
@@ -41,7 +44,7 @@ public class BackofficeController {
             BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
-            List<Usuario> usuarios = usuarioRepository.findAll();
+            List<Usuario> usuarios = usuarioRepository.buscaUsuariosAtivos();
             return new ModelAndView("usuariosBackoffice").addObject("usuarios", usuarios);
         }
         else{
@@ -53,20 +56,24 @@ public class BackofficeController {
 
     }
 
-    /*@GetMapping("/excluirUsuario/{id}")
+    @GetMapping("/excluirUsuario/{id}")
     public ModelAndView excluirUsuario(@PathVariable int id){
-        ModelAndView mv = new ModelAndView("redirect:/admin/indexBackoffice");
+        ModelAndView mv = new ModelAndView("redirect:/admin");
 
-        usuarioRepository.deleteById(id);
+        Usuario u = usuarioRepository.getOne(id);
+
+        u.setAtivo(0);
+
+        usuarioRepository.save(u);
 
         return mv;
-    }*/
+    }
 
     @GetMapping("/alterarUsuario/{id}")
     public ModelAndView alterarUsuario(@PathVariable int id){
         ModelAndView mv = new ModelAndView("usuariosBackoffice");
 
-        List<Usuario> usuarios = usuarioRepository.findAll();
+        List<Usuario> usuarios = usuarioRepository.buscaUsuariosAtivos();
 
         Usuario u = usuarioRepository.getOne(id);
 
@@ -80,7 +87,7 @@ public class BackofficeController {
                                        BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
-            List<Usuario> usuarios = usuarioRepository.findAll();
+            List<Usuario> usuarios = usuarioRepository.buscaUsuariosAtivos();
             return new ModelAndView("usuariosBackoffice").addObject("usuarios", usuarios);
         }
         else{

@@ -62,6 +62,8 @@ public class Usuario implements Serializable {
     @Column(name = "tipoacesso")
     private int tipoAcesso;
 
+    private int ativo;
+
     public int getIdUsuario() {
         return idUsuario;
     }
@@ -148,5 +150,13 @@ public class Usuario implements Serializable {
 
     public void setTipoAcesso(int tipoAcesso) {
         this.tipoAcesso = tipoAcesso;
+    }
+
+    public int getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(int ativo) {
+        this.ativo = ativo;
     }
 }
