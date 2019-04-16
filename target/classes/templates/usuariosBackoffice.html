@@ -34,27 +34,39 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="nome">Nome</label>
-                        <input type="text" class="form-control" id="nome" name="nome" th:field="${usuario.nome}">
+                        <div>
+                            <input type="text" name="nome" class="form-control" th:classappend="${#fields.hasErrors('usuario.nome')}? is-invalid" id="nome" th:field="${usuario.nome}">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('usuario.nome')}" th:errors="${usuario.nome}">
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group col-md-6">
-                        <label for="calendario">Data de Nascimento</label>
-                        <input type="date" class="form-control" id="calendario" name="nascimento" th:field="${usuario.nascimento}">
+                        <label for="nascimento">Data de Nascimento</label>
+                        <div>
+                            <input type="date" name="nascimento" class="form-control" th:classappend="${#fields.hasErrors('usuario.nascimento')}? is-invalid" id="nascimento"  th:field="${usuario.nascimento}">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('usuario.nascimento')}" th:errors="${usuario.nascimento}">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="cpf">CPF</label>
-                        <input type="text" class="form-control" id="cpf" name="cpf" th:field="${usuario.cpf}">
+                        <div>
+                            <input type="text" name="cpf" class="form-control" th:classappend="${#fields.hasErrors('usuario.cpf')}? is-invalid" id="cpf"  th:field="${usuario.cpf}">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('usuario.cpf')}" th:errors="${usuario.cpf}">
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="inputStateSexo">Sexo</label>
                         <select id="inputStateSexo" class="form-control" name="sexo">
                             <option>Selecione...</option>
-                            <option value="M">Masculino</option>
-                            <option value="F">Feminino</option>
+                            <option value="M" th:selected="${usuario.sexo == 'M'}">Masculino</option>
+                            <option value="F" th:selected="${usuario.sexo == 'F'}">Feminino</option>
                         </select>
                     </div>
                 </div>
@@ -63,7 +75,11 @@
 
                     <div class="form-group col-md-6">
                         <label for="rg">RG</label>
-                        <input type="text" class="form-control" id="rg" name="rg" th:field="${usuario.rg}">
+                        <div>
+                            <input type="text" name="rg" class="form-control" th:classappend="${#fields.hasErrors('usuario.rg')}? is-invalid" id="rg"  th:field="${usuario.rg}">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('usuario.rg')}" th:errors="${usuario.rg}">
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group col-md-6">
@@ -80,12 +96,20 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="telefone">Telefone</label>
-                        <input type="text" class="form-control" id="telefone" name="telefone" th:field="${usuario.telefone}">
+                        <div>
+                            <input type="text" name="telefone" class="form-control" th:classappend="${#fields.hasErrors('usuario.telefone')}? is-invalid" id="telefone"  th:field="${usuario.telefone}">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('usuario.telefone')}" th:errors="${usuario.telefone}">
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="endereco">Endereço</label>
-                        <input type="text" class="form-control" id="endereco" name="endereco" th:field="${usuario.endereco}">
+                        <div>
+                            <input type="text" name="endereco" class="form-control" th:classappend="${#fields.hasErrors('usuario.endereco')}? is-invalid" id="endereco"  th:field="${usuario.endereco}">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('usuario.endereco')}" th:errors="${usuario.endereco}">
+                            </div>
+                        </div>
                     </div>
 
 
@@ -95,11 +119,19 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="email">Email</label>
-                        <input type="text" class="form-control" id="email" name="email" th:field="${usuario.email}">
+                        <div>
+                            <input type="text" name="email" class="form-control" th:classappend="${#fields.hasErrors('usuario.email')}? is-invalid" id="email"  th:field="${usuario.email}">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('usuario.email')}" th:errors="${usuario.email}">
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="senha">Senha</label>
-                        <input type="password" class="form-control" id="senha" name="senha" th:field="${usuario.senha}">
+                        <div>
+                            <input type="password" name="senha" class="form-control" th:classappend="${#fields.hasErrors('usuario.senha')}? is-invalid" id="senha"  th:field="${usuario.senha}">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('usuario.senha')}" th:errors="${usuario.senha}">
+                            </div>
+                        </div>
                     </div>
 
                 </div>

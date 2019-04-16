@@ -1,9 +1,13 @@
 package sp.senac.br.pet.model;
 
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -15,18 +19,35 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idusuario")
     private int idUsuario;
+
+    @CPF(message = "CPF inválido!")
     private String cpf;
+
+    @NotBlank(message = "Preencha o nome!")
+    @Size(max = 70)
     private String nome;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @PastOrPresent
     private LocalDate nascimento;
 
+    @NotBlank(message = "Preencha o telefone!")
     private String telefone;
+
+    @NotBlank(message = "Preencha o campo email!")
+    @Email(message = "Email inválido!")
     private String email;
+
     private char sexo;
+
+    @NotBlank(message = "Preencha o rg!")
+    @Size(max = 12, message = "Número de rg muito longo!")
     private String rg;
+
+    @NotBlank(message = "Preencha o endereço!")
     private String endereco;
+
+    @NotBlank(message = "Preencha a senha!")
     private String senha;
 
     /**
