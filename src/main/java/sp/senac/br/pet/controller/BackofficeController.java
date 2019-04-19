@@ -1,4 +1,4 @@
-package sp.senac.br.pet.controller.controllerBackoffice;
+package sp.senac.br.pet.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
