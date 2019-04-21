@@ -25,9 +25,9 @@
                     <div class="classynav">
                         <ul>
                             <li><a href="index.html">Home</a></li>
-                            <li><a href="#">Alimentação</a></li>
-                            <li><a href="#">Brinquedos</a></li>
-                            <li><a href="#">Acessórios</a></li>
+                            <li><a href="todos-produtos.html">Alimentação</a></li>
+                            <li><a href="todos-produtos.html">Brinquedos</a></li>
+                            <li><a href="todos-produtos.html">Acessórios</a></li>
                         </ul>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                     <a href="#" id="essenceCartBtn"><img src="img/core-img/bag.svg" alt=""></a> <!-- carrinho de compras -->
                 </div>
                 <div class="user-login-info">
-                    <a href="#"><img src="img/core-img/user.svg" alt=""></a> <!-- login -->
+                    <a href="login.html"><img src="img/core-img/user.svg" alt=""></a> <!-- login -->
                 </div>
             </div>
 
@@ -111,12 +111,12 @@
     </div>
 
     <!-- slider principal -->
-    <section class="welcome_area bg-img background-overlay" style="background-image: url('http://fmagropecuaria.com.br/wp-content/uploads/2016/01/slider-1.jpg');">
-        <div class="container h-100">
+    <section class="welcome_area bg-img background-overlay" id="sliderprincipal">
+        <div class="container-fluid h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-8">
                 </div>
-                <div class="col-4">
+                <div class="col-4" style="text-align: center;">
                     <div class="hero-content">
                         <h2>Tudo para o seu PET!</h2>
                         <a href="#" class="btn essence-btn" style="border-radius: 5px;">Ver novidades</a>
@@ -189,7 +189,7 @@
 
                                 <div class="hover-content">
                                     <div class="add-to-cart-btn">
-                                        <a href="#" class="btn essence-btn">Adicionar ao carrinho</a> <!-- adicionar ao carrinho -->
+                                        <a href="#" class="btn essence-btn">Adicionar</a> <!-- Adicionar ao carrinho -->
                                     </div>
                                 </div>
                             </div>
@@ -209,7 +209,7 @@
 
                                 <div class="hover-content">
                                     <div class="add-to-cart-btn">
-                                        <a href="#" class="btn essence-btn">Adicionar ao carrinho</a>
+                                        <a href="#" class="btn essence-btn">Adicionar</a>
                                     </div>
                                 </div>
                             </div>
@@ -230,7 +230,7 @@
 
                                 <div class="hover-content">
                                     <div class="add-to-cart-btn">
-                                        <a href="#" class="btn essence-btn">Adicionar ao carrinho</a>
+                                        <a href="#" class="btn essence-btn">Adicionar</a>
                                     </div>
                                 </div>
                             </div>
@@ -251,7 +251,7 @@
 
                                 <div class="hover-content">
                                     <div class="add-to-cart-btn">
-                                        <a href="#" class="btn essence-btn">Adicionar ao carrinho</a>
+                                        <a href="#" class="btn essence-btn">Adicionar</a>
                                     </div>
                                 </div>
                             </div>
@@ -262,6 +262,52 @@
         </div>
     </section>
 
+    <footer class="footer_area clearfix">
+        <div class="container">
+            <div class="row">
+                <!-- Single Widget Area -->
+                <div class="col-12">
+                    <div class="single_widget_area d-flex mb-30">
+                        <!-- Logo -->
+                        <div class="footer-logo mr-50">
+                            <a href="#"><img src="img/logo.png" alt=""></a>
+                        </div>
+                        <!-- Footer Menu -->
+                        <div class="footer_menu">
+                            <ul>
+                                <li><a href="todos-produtos.html">Produtos</a></li>
+                                <li><a href="#">Contato</a></li>
+                                <li><a href="#">Sobre</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-md-12 text-center">
+                    <p>
+                        Projeto criado pelo grupo Alpha - Centro Universitário Senac 2019
+                    </p>
+                </div>
+
+                <div class="col-md-12 text-center">
+                    <div class="single_widget_area">
+                        <div class="footer_social_area">
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Youtube"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
     
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
     <script src="js/popper.min.js"></script>
@@ -269,6 +315,14 @@
     <script src="js/plugins.js"></script>
     <script src="js/classy-nav.min.js"></script>
     <script src="js/active.js"></script>
+
+    <script>
+        $( document ).ready(function() {
+            var bg = Math.floor((Math.random() * 7) + 1);
+            $("#sliderprincipal").css("background-image","url('img/slider-3.jpg')");
+        });
+        
+    </script>
 
 </body>
 

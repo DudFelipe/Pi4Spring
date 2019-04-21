@@ -56,6 +56,28 @@
     var cartOn = "cart-on";
 
     cartbtn1.on('click', function () {
+        $('.cart-list').empty();
+        var valor_carrinho = 0;
+        if (typeof carrinho !== 'undefined') {        
+            for (var i = 0; i < carrinho.length; i++) {
+                valor_carrinho += parseInt(carrinho[i].preco.replace("R$", ""));
+                    $('.cart-list').append('<div class="single-cart-item">' +
+                        '<a href="#" class="product-image">' +
+                            '<img src="' + carrinho[i].imagem + '" class="cart-thumb" alt="">' +
+                            '<div class="cart-item-desc">' +
+                              '<span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>' +
+                                '<span class="badge">' + carrinho[i].marca + '</span> <!-- marca do produto -->' +
+                                '<h6>' + carrinho[i].nome + '</h6> <!-- nome do produto -->' +
+                                '<p class="size">Quantidade: 1</p> <!-- quantidade que ele quer comprar -->' +
+                                '<p class="price">' + carrinho[i].preco + '</p> <!-- valor por unidade -->' +
+                            '</div> ' +
+                        '</a>' +
+                    '</div>');
+            }
+        }
+
+        $('#totalcomfrete').html("R$"+valor_carrinho);
+        $('#totalsemfrete').html("R$"+valor_carrinho);
         cartOverlay.toggleClass(cartOverlayOn);
         cartWrapper.toggleClass(cartOn);
     });
@@ -99,6 +121,7 @@
         var value_min = jQuery(this).data('value-min');
         var value_max = jQuery(this).data('value-max');
         var label_result = jQuery(this).data('label-result');
+        var encontrou = 0;
         var t = $(this);
         $(this).slider({
             range: true,
@@ -109,6 +132,22 @@
                 var result = label_result + " " + unit + ui.values[0] + ' - ' + unit + ui.values[1];
                 console.log(t);
                 t.closest('.slider-range').find('.range-price').html(result);
+                console.log("Min: " + ui.values[0] + " max: " + ui.values[1]);
+
+                encontrou = 0;
+                $('#lista-produtos').children('div').each(function () {
+                    if($(this).find(".product-price").html().replace(unit, "") >= ui.values[0] && $(this).find(".product-price").html().replace(unit, "") <= ui.values[1])
+                    {
+                        $(this).show();
+                        encontrou++;
+                    } else {
+                        $(this).hide();
+                    }
+
+                    
+                });
+                $("#produtos-encontrados").html(encontrou);
+
             }
         });
     });
