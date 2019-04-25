@@ -10,11 +10,17 @@ import sp.senac.br.pet.repository.UsuarioRepository;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/login")
 public class UsuarioController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @GetMapping
+    public ModelAndView login(){
+        ModelAndView mv = new ModelAndView("login");
+        return mv;
+    }
 
     @GetMapping("/cadastro")
     public ModelAndView cadastrar(){ //Mostrar o formulário de cadastro
