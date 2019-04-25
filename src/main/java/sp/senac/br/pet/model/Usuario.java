@@ -27,6 +27,10 @@ public class Usuario implements Serializable {
     @Size(max = 70)
     private String nome;
 
+    @Transient
+    @NotBlank(message = "Preencha o sobrenome!")
+    private String sobrenome;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @PastOrPresent
     private LocalDate nascimento;
@@ -39,13 +43,6 @@ public class Usuario implements Serializable {
     private String email;
 
     private char sexo;
-
-    @NotBlank(message = "Preencha o rg!")
-    @Size(max = 12, message = "Número de rg muito longo!")
-    private String rg;
-
-    @NotBlank(message = "Preencha o endereço!")
-    private String endereco;
 
     @NotBlank(message = "Preencha a senha!")
     private String senha;
@@ -88,6 +85,14 @@ public class Usuario implements Serializable {
         this.nome = nome;
     }
 
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
     public LocalDate getNascimento() {
         return nascimento;
     }
@@ -118,22 +123,6 @@ public class Usuario implements Serializable {
 
     public void setSexo(char sexo) {
         this.sexo = sexo;
-    }
-
-    public String getRg() {
-        return rg;
-    }
-
-    public void setRg(String rg) {
-        this.rg = rg;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
     }
 
     public String getSenha() {

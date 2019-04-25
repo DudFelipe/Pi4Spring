@@ -98,9 +98,7 @@ public class BackofficeController {
             user.setTipoAcesso(u.getTipoAcesso());
             user.setCpf(u.getCpf());
             user.setEmail(u.getEmail());
-            user.setEndereco(u.getEndereco());
             user.setNascimento(u.getNascimento());
-            user.setRg(u.getRg());
             user.setSenha(u.getSenha());
             user.setSexo(u.getSexo());
             user.setTelefone(u.getTelefone());

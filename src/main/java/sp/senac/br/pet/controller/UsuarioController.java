@@ -24,7 +24,7 @@ public class UsuarioController {
 
     @GetMapping("/cadastro")
     public ModelAndView cadastrar(){ //Mostrar o formulário de cadastro
-        ModelAndView mv = new ModelAndView("cadastroUsuario");
+        ModelAndView mv = new ModelAndView("cadastro");
         mv.addObject("usuario", new Usuario());
         return mv;
     }
@@ -35,11 +35,13 @@ public class UsuarioController {
             BindingResult bindingResult){ //Concluir o cadastro
 
         if(bindingResult.hasErrors()){
-            return new ModelAndView("cadastroUsuario");
+            return new ModelAndView("cadastro");
         }
         else {
-            ModelAndView mv = new ModelAndView("redirect:/usuario/cadastro");
+            ModelAndView mv = new ModelAndView("redirect:/index");
             u.setTipoAcesso(1);
+            u.setAtivo(1);
+            u.setNome(u.getNome() + " " + u.getSobrenome());
             usuarioRepository.save(u);
 
             return mv;
