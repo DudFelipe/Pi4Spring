@@ -119,29 +119,77 @@
             <img src="img/login-bg.jpg" alt="" id="bgprincipal">
         </div>
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8">
                     <div class="regular-page-content-wrapper section-padding-80">
                         <div class="regular-page-text">
                             <h2>Cadastre-se agora</h2>
                             <div class="row">
-                                <div class="col-md-12" style="padding: 5%; background: #a7a7a775; box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19); border-radius: 15px;">
-                                    <h3>Login</h3>
-                                    <form>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Seu e-mail" value="">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="mb-2">
+                                        <img src="img/cadastro.jpg" class="img-fluid">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12" style="padding: 5%; background: #a7a7a700; box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19); border-radius: 15px;">
+                                    <div class="form-row">
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label for="nome">Nome</label>
+                                            <input type="text" class="form-control" value="" id="nome">
                                         </div>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control" placeholder="Sua senha" value="">
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label for="sobrenome">Sobrenome</label>
+                                            <input type="text" class="form-control" placeholder="Sua senha" value="" id="sobrenome">
                                         </div>
-                                        <div class="form-group">
-                                            <input type="submit" class="btn essence-btn" value="Login">
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label for="dtnasc">Data de Nascimento</label>
+                                            <input type="text" class="form-control" value="" id="dtnasc">
                                         </div>
-                                        <div class="form-group">
-                                            <a href="#" class="ForgetPwd">Novo? Cadastre-se agora</a>
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label for="sexo">Gênero</label>
+                                            <select name="genero" id="sexo" class="form-control">
+                                                <option value="1">Masculino</option>
+                                                <option value="2">Feminino</option>
+                                            </select>
                                         </div>
-                                    </form>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label for="cpf">CPF</label>
+                                            <input type="text" class="form-control" value="" id="cpf">
+                                        </div>
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label for="telefone">Telefone</label>
+                                            <input type="text" class="form-control" value="" id="telefone">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label for="email">E-mail</label>
+                                            <input type="text" class="form-control" value="" id="email">
+                                        </div>
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label for="senha">Senha</label>
+                                            <input type="password" class="form-control" value="" id="senha">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label for="cemail">Confirme e-mail</label>
+                                            <input type="text" class="form-control" value="" id="cemail">
+                                        </div>
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label for="csenha">Confirme senha</label>
+                                            <input type="password" class="form-control" value="" id="csenha">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-12">
+                                            <input type="submit" class="btn essence-btn" value="Cadastrar">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

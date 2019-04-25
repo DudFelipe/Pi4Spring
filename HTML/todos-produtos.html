@@ -309,7 +309,16 @@
     if (carrinho) 
         carrinho = JSON.parse(carrinho);*/
 
-    var carrinho = [];
+    if (localStorage.getItem("carrinho_pi4") === null) {
+      var carrinho = [];
+      console.log("Não encontrei carrinho na storage. Criei um vazio");
+    } else {
+      var carrinho = JSON.parse(localStorage.getItem("carrinho_pi4"));
+      console.log("Carrinho encontrado no localStorage:");
+      console.log(carrinho);
+    }
+
+    
 
         $(".adicionarproduto").on("click", function () {
             var marca = $(this).closest(".product-description").find(".marca-produto").html();
@@ -324,13 +333,9 @@
                 'preco': preco
             });
 
-        });
+            localStorage.setItem('carrinho_pi4', JSON.stringify(carrinho));
 
-        function adicionaCarrinho(thi, id)
-        {
-            console.log(thi.innerHTML());
-            console.log($(this).closest(".marca-produto").html());
-        }
+        });
 
         function filtrar(oque, html)
         {
@@ -362,10 +367,6 @@
             }
 
             $("#produtos-encontrados").html(encontrou);
-        }
-
-        function oi() {
-            
         }
 
     </script>
