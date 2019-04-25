@@ -1,9 +1,13 @@
 package sp.senac.br.pet.model;
 
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -15,18 +19,32 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idusuario")
     private int idUsuario;
+
+    @CPF(message = "CPF inválido!")
     private String cpf;
+
+    @NotBlank(message = "Preencha o nome!")
+    @Size(max = 70)
     private String nome;
+
+    @Transient
+    @NotBlank(message = "Preencha o sobrenome!")
+    private String sobrenome;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @PastOrPresent
     private LocalDate nascimento;
 
+    @NotBlank(message = "Preencha o telefone!")
     private String telefone;
+
+    @NotBlank(message = "Preencha o campo email!")
+    @Email(message = "Email inválido!")
     private String email;
+
     private char sexo;
-    private String rg;
-    private String endereco;
+
+    @NotBlank(message = "Preencha a senha!")
     private String senha;
 
     /**
@@ -40,6 +58,8 @@ public class Usuario implements Serializable {
      */
     @Column(name = "tipoacesso")
     private int tipoAcesso;
+
+    private int ativo;
 
     public int getIdUsuario() {
         return idUsuario;
@@ -63,6 +83,14 @@ public class Usuario implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
     }
 
     public LocalDate getNascimento() {
@@ -97,22 +125,6 @@ public class Usuario implements Serializable {
         this.sexo = sexo;
     }
 
-    public String getRg() {
-        return rg;
-    }
-
-    public void setRg(String rg) {
-        this.rg = rg;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
     public String getSenha() {
         return senha;
     }
@@ -127,5 +139,13 @@ public class Usuario implements Serializable {
 
     public void setTipoAcesso(int tipoAcesso) {
         this.tipoAcesso = tipoAcesso;
+    }
+
+    public int getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(int ativo) {
+        this.ativo = ativo;
     }
 }

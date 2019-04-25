@@ -1,11 +1,17 @@
 package sp.senac.br.pet.controller.controllerBackoffice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sp.senac.br.pet.model.Usuario;
 import sp.senac.br.pet.repository.UsuarioRepository;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,7 +31,7 @@ public class BackofficeController {
     public ModelAndView usuariosBackoffice(){
         ModelAndView mv = new ModelAndView("usuariosBackoffice");
 
-        List<Usuario> usuarios = usuarioRepository.findAll();
+        List<Usuario> usuarios = usuarioRepository.buscaUsuariosAtivos();
 
         mv.addObject("usuarios", usuarios);
         mv.addObject("usuario", new Usuario());
@@ -33,50 +39,74 @@ public class BackofficeController {
     }
 
     @PostMapping("/usuariosBackoffice")
-    public ModelAndView cadastraUsuarios(Usuario u){
-        ModelAndView mv = new ModelAndView("redirect:/admin");
+    public ModelAndView cadastraUsuarios(
+            @ModelAttribute("usuario")  @Valid Usuario u,
+            BindingResult bindingResult){
 
-        usuarioRepository.save(u);
-        return mv;
+        if(bindingResult.hasErrors()){
+            List<Usuario> usuarios = usuarioRepository.buscaUsuariosAtivos();
+            return new ModelAndView("usuariosBackoffice").addObject("usuarios", usuarios);
+        }
+        else{
+            ModelAndView mv = new ModelAndView("redirect:/admin");
+
+            usuarioRepository.save(u);
+            return mv;
+        }
+
     }
 
-    /*@GetMapping("/excluirUsuario/{id}")
+    @GetMapping("/excluirUsuario/{id}")
     public ModelAndView excluirUsuario(@PathVariable int id){
-        ModelAndView mv = new ModelAndView("redirect:/admin/indexBackoffice");
+        ModelAndView mv = new ModelAndView("redirect:/admin");
 
-        usuarioRepository.deleteById(id);
+        Usuario u = usuarioRepository.getOne(id);
+
+        u.setAtivo(0);
+
+        usuarioRepository.save(u);
 
         return mv;
-    }*/
+    }
 
     @GetMapping("/alterarUsuario/{id}")
     public ModelAndView alterarUsuario(@PathVariable int id){
         ModelAndView mv = new ModelAndView("usuariosBackoffice");
 
+        List<Usuario> usuarios = usuarioRepository.buscaUsuariosAtivos();
+
         Usuario u = usuarioRepository.getOne(id);
 
+        mv.addObject("usuarios", usuarios);
         mv.addObject("usuario", u);
         return mv;
     }
 
     @PostMapping("/alterarUsuario/{id}")
-    public ModelAndView alterarUsuario(@PathVariable int id, Usuario u){
-        ModelAndView mv = new ModelAndView("redirect:/admin");
+    public ModelAndView alterarUsuario(@PathVariable int id, @ModelAttribute("usuario")  @Valid Usuario u,
+                                       BindingResult bindingResult){
 
-        Usuario user = usuarioRepository.getOne(id);
-        user.setNome(u.getNome());
-        user.setTipoAcesso(u.getTipoAcesso());
-        user.setCpf(u.getCpf());
-        user.setEmail(u.getEmail());
-        user.setEndereco(u.getEndereco());
-        user.setNascimento(u.getNascimento());
-        user.setRg(u.getRg());
-        user.setSenha(u.getSenha());
-        user.setSexo(u.getSexo());
-        user.setTelefone(u.getTelefone());
+        if(bindingResult.hasErrors()){
+            List<Usuario> usuarios = usuarioRepository.buscaUsuariosAtivos();
+            return new ModelAndView("usuariosBackoffice").addObject("usuarios", usuarios);
+        }
+        else{
+            ModelAndView mv = new ModelAndView("redirect:/admin");
 
-        usuarioRepository.save(user);
+            Usuario user = usuarioRepository.getOne(id);
+            user.setNome(u.getNome());
+            user.setTipoAcesso(u.getTipoAcesso());
+            user.setCpf(u.getCpf());
+            user.setEmail(u.getEmail());
+            user.setNascimento(u.getNascimento());
+            user.setSenha(u.getSenha());
+            user.setSexo(u.getSexo());
+            user.setTelefone(u.getTelefone());
 
-        return mv;
+            usuarioRepository.save(user);
+
+            return mv;
+        }
+
     }
 }
