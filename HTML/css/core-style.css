@@ -136,7 +136,7 @@ img {
 
 /* Section Padding */
 .section-padding-80 {
-  padding-top: 80px;
+  padding-top: 16px;
   padding-bottom: 80px; }
 
 .section-padding-80-0 {
@@ -1055,7 +1055,7 @@ img {
   position: relative;
   z-index: 1;
   background-color: #252525;
-  padding: 70px 0 60px; }
+  padding: 20px 0 5px; }
   .footer_area .single_widget_area .footer_menu ul {
     display: -webkit-box;
     display: -ms-flexbox;
