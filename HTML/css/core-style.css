@@ -643,11 +643,11 @@ img {
       height: 350px; } }
   .welcome_area .hero-content h6 {
     font-size: 18px;
-    color: #787878;
+    color: #000000;
     margin-bottom: 10px; }
-  .welcome_area .hero-content h2 {
+  .welcome_area .hero-content h2 {  
     font-size: 60px;
-    color: #252525;
+    color: #000000;
     margin-bottom: 50px; }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       .welcome_area .hero-content h2 {
