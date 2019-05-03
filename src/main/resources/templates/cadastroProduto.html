@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Produtos - Inclusão</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <form method="POST" th:object="${produto}">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="nome">Nome</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="descricao">Descrição</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="descricao" name="descricao" th:field="*{descricao}"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="preco">Preço Compra</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="preco" name="preco" th:field="*{preco}">
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="fabricante">Fabricante</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="fabricante" name="fabricante" th:field="*{fabricante}">
+            </div>
+
+            <label class="col-sm-2 col-form-label" for="modelo">Modelo</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="modelo" name="modelo" th:field="*{modelo}">
+            </div>
+
+            <label class="col-sm-2 col-form-label" for="estoque">Quantidade</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="estoque" name="estoque" th:field="*{estoque}">
+            </div>
+
+            <label class="col-sm-2 col-form-label" for="codigodebarras">Cód.Barras</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="codigodebarras" name="codigodebarras" th:field="*{codigodebarras}">
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" >Status</label>
+            <div class="col-sm-2">
+                <input class="form-check-input" type="radio" name="status" id="valido" value="1" th:field="*{ativo}">
+                <label class="form-check-label" for="valido">Disponível</label>
+            </div>
+            <div class="col-sm-2">
+                <input class="form-check-input" type="radio" name="status" id="invalido" value="0" th:field="*{ativo}">
+                <label class="form-check-label" for="invalido">Indisponível</label>
+            </div>
+        </div>
+
+        <div>
+            <label class="col-sm-2 col-form-label" >Categorias</label>
+            <span class="col-sm-1" th:each="categoria : ${categorias}">
+                <input class="form-check-input" name="idCategoria" type="radio" th:value="${categoria.idCategoria}" th:field="*{idCategoria}">
+                <label class="form-check-label" th:for="${categoria.nome}"><span th:text="${categoria.nome}"></span></label>
+            </span>
+
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-3">
+                <button type="submit" class="btn btn-success col-sm-12">Salvar</button>
+            </div>
+            <div class="col-sm-3">
+                <a class="btn btn-warning col-sm-12" th:href="@{/produto}">Cancelar</a>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+
+    </form>
+
+    <script>
+
+        $( ".excluiProduto" ).click(function(e) {
+            e.preventDefault();
+            var nomeProduto = $(this).attr("nomeProduto");
+            var idProduto = $(this).attr("idProduto");
+            $("#exampleModal").modal('show');
+            $("#nomeProdutoModal").text(nomeProduto);
+
+            $('#sim').closest('a').attr('href', $(this).attr('href'));
+
+        });
+
+
+
+    </script>
+
+</div>
+</body>
+</html>
