@@ -165,14 +165,14 @@ public class BackofficeController {
         Produto p = produtoRepository.getOne(id);
 
         mv.addObject("produto", p);
-        mv.addObject("categoria", categorias);
+        mv.addObject("categorias", categorias);
 
         return mv;
     }
 
     @PostMapping("/alterar/{id}")
     public ModelAndView alterar(@PathVariable int id, Produto p){
-        ModelAndView mv = new ModelAndView("redirect:/produto");
+        ModelAndView mv = new ModelAndView("redirect:/admin/listagemProdutosBackOffice");
 
         Produto prod = produtoRepository.getOne(id);
 
@@ -191,7 +191,7 @@ public class BackofficeController {
     @GetMapping("/excluir/{id}")
     public ModelAndView excluir(@PathVariable int id){
 
-        ModelAndView mv = new ModelAndView("redirect:/produto");
+        ModelAndView mv = new ModelAndView("redirect:/admin/listagemProdutosBackOffice");
 
         Produto p = produtoRepository.getOne(id);
         produtoRepository.delete(p);
@@ -200,6 +200,17 @@ public class BackofficeController {
 
         return mv;
 
+    }
+
+    @GetMapping("/listagemProdutosBackOffice")
+    public ModelAndView listagemProdutosBackOffice(){
+        ModelAndView mv = new ModelAndView("listagemProdutosBackOffice");
+        List<Produto> produtos = produtoRepository.findAll();
+
+        mv.addObject("produtos", produtos);
+
+
+        return mv;
     }
 
 }
