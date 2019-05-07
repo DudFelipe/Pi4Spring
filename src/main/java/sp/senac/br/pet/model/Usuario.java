@@ -1,13 +1,11 @@
 package sp.senac.br.pet.model;
 
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -42,10 +40,16 @@ public class Usuario implements Serializable {
     @Email(message = "Email inválido!")
     private String email;
 
+    @Transient
+    private String cemail;
+
     private char sexo;
 
     @NotBlank(message = "Preencha a senha!")
     private String senha;
+
+    @Transient
+    private String csenha;
 
     /**
      * tipoAcesso = 1 -> Acesso de Cliente
@@ -60,6 +64,16 @@ public class Usuario implements Serializable {
     private int tipoAcesso;
 
     private int ativo;
+
+    @AssertTrue(message = "As senhas não são iguais!")
+    private boolean isValid(){
+        return this.senha.equals(this.csenha);
+    }
+
+    /*@AssertTrue(message = "Os emails não são iguais!")
+    private boolean isValidEmail(){
+        return this.senha.equals(this.csenha);
+    }*/
 
     public int getIdUsuario() {
         return idUsuario;
@@ -131,6 +145,14 @@ public class Usuario implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getCsenha() {
+        return csenha;
+    }
+
+    public void setCsenha(String csenha) {
+        this.csenha = csenha;
     }
 
     public int getTipoAcesso() {
