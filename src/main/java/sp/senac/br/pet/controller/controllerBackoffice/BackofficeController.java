@@ -110,7 +110,7 @@ public class BackofficeController {
             user.setCpf(u.getCpf());
             user.setEmail(u.getEmail());
             user.setNascimento(u.getNascimento());
-            user.setSenha(u.getSenha());
+            user.setSenha(u.getHashSenha());
             user.setSexo(u.getSexo());
             user.setTelefone(u.getTelefone());
 
@@ -118,7 +118,6 @@ public class BackofficeController {
 
             return mv;
         }
-
     }
 
 

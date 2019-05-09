@@ -3,6 +3,7 @@ package sp.senac.br.pet.model;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
+import sp.senac.br.pet.SecurityConfig;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -40,16 +41,17 @@ public class Usuario implements Serializable {
     @Email(message = "Email inválido!")
     private String email;
 
-    @Transient
-    private String cemail;
+    /*@Transient
+    private String cemail;*/
 
     private char sexo;
 
     @NotBlank(message = "Preencha a senha!")
-    private String senha;
+    @Column(name = "senha")
+    private String hashSenha;
 
-    @Transient
-    private String csenha;
+    /*@Transient
+    private String csenha;*/
 
     /**
      * tipoAcesso = 1 -> Acesso de Cliente
@@ -65,14 +67,9 @@ public class Usuario implements Serializable {
 
     private int ativo;
 
-    @AssertTrue(message = "As senhas não são iguais!")
+    /*@AssertTrue(message = "As senhas não são iguais!")
     private boolean isValid(){
-        return this.senha.equals(this.csenha);
-    }
-
-    /*@AssertTrue(message = "Os emails não são iguais!")
-    private boolean isValidEmail(){
-        return this.senha.equals(this.csenha);
+        return this.hashSenha.equals(this.csenha);
     }*/
 
     public int getIdUsuario() {
@@ -139,21 +136,28 @@ public class Usuario implements Serializable {
         this.sexo = sexo;
     }
 
-    public String getSenha() {
-        return senha;
+    public final void setSenha(String senha) {
+        this.hashSenha =
+                SecurityConfig.bcryptPasswordEncoder()
+                        .encode(senha);
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public String getHashSenha() {
+        return hashSenha;
     }
 
-    public String getCsenha() {
+    public void setHashSenha(String hashSenha) {
+        this.hashSenha = hashSenha;
+    }
+
+    /*public String getCsenha() {
         return csenha;
     }
 
-    public void setCsenha(String csenha) {
-        this.csenha = csenha;
-    }
+    public final void setCsenha(String csenha) {
+        this.csenha = SecurityConfig.bcryptPasswordEncoder()
+                .encode(csenha);
+    }*/
 
     public int getTipoAcesso() {
         return tipoAcesso;
