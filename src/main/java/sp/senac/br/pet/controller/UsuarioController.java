@@ -1,6 +1,7 @@
 package sp.senac.br.pet.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,9 +18,12 @@ public class UsuarioController {
     private UsuarioRepository usuarioRepository;
 
     @GetMapping
-    public ModelAndView login(){
-        ModelAndView mv = new ModelAndView("login");
-        return mv;
+    public ModelAndView login(Authentication authentication){
+        if(authentication != null){
+            return new ModelAndView("redirect:/index");
+        }
+
+        return new ModelAndView("login");
     }
 
     @GetMapping("/cadastro")
