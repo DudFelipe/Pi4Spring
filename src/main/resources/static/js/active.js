@@ -109,9 +109,9 @@
     });
 
     // :: Nice Select Active Code
-    if ($.fn.niceSelect) {
+    /*if ($.fn.niceSelect) {
         $('select').niceSelect();
-    }
+    }*/
 
     // :: Slider Range Price Active Code
     $('.slider-range-price').each(function () {

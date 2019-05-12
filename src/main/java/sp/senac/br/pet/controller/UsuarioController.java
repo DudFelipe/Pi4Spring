@@ -42,6 +42,7 @@ public class UsuarioController {
             u.setTipoAcesso(1);
             u.setAtivo(1);
             u.setNome(u.getNome() + " " + u.getSobrenome());
+            u.setSenha(u.getHashSenha());
             usuarioRepository.save(u);
 
             return mv;
