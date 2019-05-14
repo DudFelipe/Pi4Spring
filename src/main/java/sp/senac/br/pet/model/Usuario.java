@@ -1,33 +1,59 @@
 package sp.senac.br.pet.model;
 
+import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
+import sp.senac.br.pet.SecurityConfig;
 
 import javax.persistence.*;
-import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
 public class Usuario implements Serializable {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idusuario")
     private int idUsuario;
+
+    @CPF(message = "CPF inválido!")
     private String cpf;
+
+    @NotBlank(message = "Preencha o nome!")
+    @Size(max = 70)
     private String nome;
+
+    @Transient
+    @NotBlank(message = "Preencha o sobrenome!")
+    private String sobrenome;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @PastOrPresent
     private LocalDate nascimento;
 
+    @NotBlank(message = "Preencha o telefone!")
     private String telefone;
+
+    @NotBlank(message = "Preencha o campo email!")
+    @Email(message = "Email inválido!")
     private String email;
+
+    /*@Transient
+    private String cemail;*/
+
     private char sexo;
-    private String rg;
-    private String endereco;
-    private String senha;
+
+    @NotBlank(message = "Preencha a senha!")
+    @Column(name = "senha")
+    private String hashSenha;
+
+    /*@Transient
+    private String csenha;*/
 
     /**
      * tipoAcesso = 1 -> Acesso de Cliente
@@ -40,6 +66,13 @@ public class Usuario implements Serializable {
      */
     @Column(name = "tipoacesso")
     private int tipoAcesso;
+
+    private int ativo;
+
+    /*@AssertTrue(message = "As senhas não são iguais!")
+    private boolean isValid(){
+        return this.hashSenha.equals(this.csenha);
+    }*/
 
     public int getIdUsuario() {
         return idUsuario;
@@ -63,6 +96,14 @@ public class Usuario implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
     }
 
     public LocalDate getNascimento() {
@@ -97,29 +138,28 @@ public class Usuario implements Serializable {
         this.sexo = sexo;
     }
 
-    public String getRg() {
-        return rg;
+    public final void setSenha(String senha) {
+        this.hashSenha =
+                SecurityConfig.bcryptPasswordEncoder()
+                        .encode(senha);
     }
 
-    public void setRg(String rg) {
-        this.rg = rg;
+    public String getHashSenha() {
+        return hashSenha;
     }
 
-    public String getEndereco() {
-        return endereco;
+    public void setHashSenha(String hashSenha) {
+        this.hashSenha = hashSenha;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    /*public String getCsenha() {
+        return csenha;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+    public final void setCsenha(String csenha) {
+        this.csenha = SecurityConfig.bcryptPasswordEncoder()
+                .encode(csenha);
+    }*/
 
     public int getTipoAcesso() {
         return tipoAcesso;
@@ -127,5 +167,13 @@ public class Usuario implements Serializable {
 
     public void setTipoAcesso(int tipoAcesso) {
         this.tipoAcesso = tipoAcesso;
+    }
+
+    public int getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(int ativo) {
+        this.ativo = ativo;
     }
 }

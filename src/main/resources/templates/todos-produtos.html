@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html layout:decorate="~{template.html}">
+<body>
+<div layout:fragment="conteudo">
+   
+    <div class="breadcumb_area bg-img" style="background-image: url(/images/bg-img/breadcumb.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="page-title text-center">
+                        <h2>todos os produtos</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ##### Shop Grid Area Start ##### -->
+    <section class="shop_grid_area section-padding-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4 col-lg-3">
+                    <div class="shop_sidebar_area">
+
+                        <!-- ##### Single Widget ##### -->
+                        <div class="widget catagory mb-50">
+                            <!-- Widget Title -->
+                            <h6 class="widget-title mb-30">Categorias</h6>
+
+                            <!--  Catagories  -->
+                            <div class="catagories-menu">
+                                <ul id="menu-content2" class="menu-content collapse show">
+                                    <!-- Single Item -->
+                                    <li>
+                                        <ul class="sub-menu collapse show" id="clothing">
+                                            <li th:each="categoria : ${categorias}"><a href="#" onClick="filtrar('categoria', this.innerHTML)" th:text="${categoria.nome}"></a></li>
+
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- ##### Single Widget ##### -->
+                        <div class="widget price mb-50">
+                            <!-- Widget Title -->
+                            <h6 class="widget-title mb-30">Filtrar por</h6>
+                            <!-- Widget Title 2 -->
+                            <p class="widget-title2 mb-30">Preço</p>
+
+                            <div class="widget-desc">
+                                <div class="slider-range">
+                                    <div data-min="0" data-max="500" data-unit="R$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="0" data-value-max="500" data-label-result="Entre:">
+                                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                    </div>
+                                    <div class="range-price">Entre: R$0.00 - R$500.00</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="widget brands mb-50">
+                            <p class="widget-title2 mb-30">Marcas</p>
+                            <div class="widget-desc">
+                                <ul>
+                                    <li th:each="produto : ${produtos}"><a href="#" onClick="filtrar('marca', this.innerHTML)" th:text="${produto.fabricante}"></a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-8 col-lg-9">
+                    <div class="shop_grid_product_area">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="product-topbar d-flex align-items-center justify-content-between">
+                                    <!-- Total Products -->
+                                    <div class="total-products">
+                                        <p><span id="produtos-encontrados">3</span> produtos encontrados</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" id="lista-produtos">
+
+                            <div class="col-12 col-sm-6 col-lg-4" th:each="produto : ${produtos}">
+                                <div class="single-product-wrapper">
+                                    <div class="product-img">
+                                        <img th:src="@{/images/{id}.jpg(id=${produto.idProduto})}"alt="">
+                                    </div>
+
+                                    
+                                    <div class="product-description">
+                                        <span class="marca-produto" th:text="${produto.fabricante}"></span>
+                                        <span class="categoria-produto" th:text="${produto.idCategoria.nome}"></span>
+                                        <span class="id-produto" style="display: none" th:text="${produto.idProduto}"></span>
+
+                                        <a href="single-product-details.html">
+                                            <h6 class="nome-produto" th:text="${produto.nome}"></h6>
+                                        </a>
+                                            <p class="product-price" th:text="'R$' + ${produto.preco}" ></p>
+
+                                        <div class="hover-content">
+                                            <div class="add-to-cart-btn">
+                                                <a href="#" class="btn essence-btn adicionarproduto">Adicionar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+
+<!--                            <div class="col-12 col-sm-6 col-lg-4">-->
+<!--                                <div class="single-product-wrapper">-->
+<!--                                    <div class="product-img">-->
+<!--                                        <img src="img/racao.jpg" alt="">-->
+<!--                                    </div>-->
+
+
+<!--                                    <div class="product-description">-->
+<!--                                        <span class="marca-produto">Marca 2</span>-->
+<!--                                        <span class="categoria-produto">Brinquedos</span>-->
+
+<!--                                        <a href="single-product-details.html">-->
+<!--                                            <h6 class="nome-produto">Macaco Maluco</h6>-->
+<!--                                        </a>-->
+<!--                                        <p class="product-price">R$20.00</p>-->
+
+<!--                                        <div class="hover-content">-->
+<!--                                            <div class="add-to-cart-btn">-->
+<!--                                                <a href="#" class="btn essence-btn adicionarproduto">Adicionar</a>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <div class="col-12 col-sm-6 col-lg-4">-->
+<!--                                <div class="single-product-wrapper">-->
+<!--                                    <div class="product-img">-->
+<!--                                        <img src="img/racao.jpg" alt="">-->
+<!--                                    </div>-->
+
+
+<!--                                    <div class="product-description">-->
+<!--                                        <span class="marca-produto">Marca 1</span>-->
+<!--                                        <span class="categoria-produto">Acessórios</span>-->
+
+<!--                                        <a href="single-product-details.html">-->
+<!--                                            <h6 class="nome-produto">Lenço</h6>-->
+<!--                                        </a>-->
+<!--                                        <p class="product-price">R$15.00</p>-->
+
+<!--                                        <div class="hover-content">-->
+<!--                                            <div class="add-to-cart-btn">-->
+<!--                                                <a href="#" class="btn essence-btn adicionarproduto">Adicionar</a>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+   
+</body>
+</html>
+
+<script>
+            $(".adicionarproduto").on("click", function () {
+            var marca = $(this).closest(".product-description").find(".marca-produto").html();
+            var imagem = $(this).closest(".single-product-wrapper").find("img").attr("src");
+            var nome = $(this).closest(".product-description").find(".nome-produto").html();
+            var preco = $(this).closest(".product-description").find(".product-price").html();
+            var id = $(this).closest(".product-description").find(".id-produto").html();
+            
+            var novoProduto = true;
+            for (var i = 0; i < carrinho["produtos"].length; i++) {
+                if(carrinho["produtos"][i].id == id) {
+                    novoProduto = false;
+                    carrinho["produtos"][i].quantidade += 1;
+                    break;
+                }
+            }
+            
+            if (novoProduto) {
+                carrinho.produtos.push({
+                    'id': id,
+                    'marca': marca,
+                    'imagem': imagem,
+                    'nome': nome,
+                    'preco': preco,
+                    quantidade: 1
+                });
+            }
+            
+            carrinho.valor += parseInt(preco.replace("R$", ""));
+
+            localStorage.setItem('carrinho_pi4', JSON.stringify(carrinho));
+            
+            $("#essenceCartBtn").click();
+
+        });
+</script>

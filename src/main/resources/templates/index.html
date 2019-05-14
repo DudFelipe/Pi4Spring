@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pet Tades - INDEX</title>
+    <link th:href="@{/css/core-style.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+<div layout:fragment="conteudo">
+    <!-- slider principal -->
+    <section class="welcome_area bg-img background-overlay" id="sliderprincipal">
+        <div class="container-fluid h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-8">
+                </div>
+                <div class="col-4" style="text-align: center;">
+                    <div class="hero-content">
+                        <h2>Tudo para o seu PET!</h2>
+                        <a href="#" class="btn essence-btn" style="border-radius: 5px;">Ver novidades</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- acesso direto para categorias -->
+    <div class="top_catagory_area section-padding-80 clearfix">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- Single Catagory -->
+                <div class="col-12 col-md-4">
+                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(/images/alimentos.jpeg);">
+                        <div class="catagory-content">
+                            <a href="#">ALIMENTOS</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Single Catagory -->
+                <div class="col-12 col-md-4">
+                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(/images/brinquedos.jpg);">
+                        <div class="catagory-content">
+                            <a href="#">BRINQUEDOS</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Single Catagory -->
+                <div class="col-12 col-md-4">
+                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(/images/acessorios.jpg);">
+                        <div class="catagory-content">
+                            <a href="#">ACESSÓRIOS</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- produtos em destaque -->
+    <section class="new_arrivals_area section-padding-80 clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-center">
+                        <h2>Produtos em Destaque</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="popular-products-slides owl-carousel">
+                        <div class="single-product-wrapper">
+                            <div class="product-img">
+                                <img th:src="@{/images/product-img/snack.webp}" alt=""> <!-- img do produto -->
+                                <img class="hover-img" th:src="@{/images/product-img/snack.webp}" alt=""> <!-- img em hover -->
+                            </div>
+                            <div class="product-description">
+                                <span>Pet Tades</span> <!-- empresa do produto -->
+                                <a href="produto-interno.html">
+                                    <h6>Snack Proteico</h6> <!-- nome do produto -->
+                                </a>
+                                <p class="product-price">R$20.00</p> <!-- preço -->
+
+                                <div class="hover-content">
+                                    <div class="add-to-cart-btn">
+                                        <a href="/produto" class="btn essence-btn">VER MAIS</a> <!-- Adicionar ao carrinho -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="single-product-wrapper">
+                            <div class="product-img">
+                                <img th:src="@{/images/product-img/brinquedo.webp}" alt="">
+                                <img class="hover-img" th:src="@{/images/product-img/brinquedo.webp}" alt="">
+                            </div>
+                            <div class="product-description">
+                                <span>Pet Tades</span>
+                                <a href="produto-interno.html">
+                                    <h6>Brinquedo Macaco Maluco</h6>
+                                </a>
+                                <p class="product-price">R$40.00</p>
+
+                                <div class="hover-content">
+                                    <div class="add-to-cart-btn">
+                                        <a href="/produto" class="btn essence-btn">VER MAIS</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="single-product-wrapper">
+                            <div class="product-img">
+                                <img th:src="@{/images/product-img/racao.webp}" alt="">
+                                <img class="hover-img" th:src="@{/images/product-img/racao.webp}" alt="">
+
+                            </div>
+                            <div class="product-description">
+                                <span>Pet Tades</span>
+                                <a href="produto-interno.html">
+                                    <h6>Ração Super Premium</h6>
+                                </a>
+                                <p class="product-price"><span class="old-price">R$75.00</span> R$55.00</p>
+
+                                <div class="hover-content">
+                                    <div class="add-to-cart-btn">
+                                        <a href="/produto" class="btn essence-btn">VER MAIS</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="single-product-wrapper">
+                            <div class="product-img">
+                                <img th:src="@{/images/product-img/tapete.webp}" alt="">
+                                <img class="hover-img" th:src="@{/images/product-img/tapete.webp}" alt="">
+
+                            </div>
+                            <div class="product-description">
+                                <span>Pet Tades</span>
+                                <a href="produto-interno.html">
+                                    <h6>Tapete Higiênico</h6>
+                                </a>
+                                <p class="product-price">R$35.00</p>
+
+                                <div class="hover-content">
+                                    <div class="add-to-cart-btn">
+                                        <a href="/produto" class="btn essence-btn">VER MAIS</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+
+</html>
