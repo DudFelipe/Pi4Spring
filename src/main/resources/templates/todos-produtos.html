@@ -1,23 +1,8 @@
 <!DOCTYPE html>
 <html layout:decorate="~{template.html}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Pet Tades - INDEX</title>
-    <link rel="stylesheet" href="css/core-style.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-
-
-
 <body>
 <div layout:fragment="conteudo">
-
-<!--    th:src="@{/images/product-img/racao.webp}-->
-
-    <!-- ##### Breadcumb Area Start ##### -->
+   
     <div class="breadcumb_area bg-img" style="background-image: url(/images/bg-img/breadcumb.jpg);">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
@@ -29,7 +14,6 @@
             </div>
         </div>
     </div>
-    <!-- ##### Breadcumb Area End ##### -->
 
     <!-- ##### Shop Grid Area Start ##### -->
     <section class="shop_grid_area section-padding-80">
@@ -111,13 +95,14 @@
                                         <img th:src="@{/images/{id}.jpg(id=${produto.idProduto})}"alt="">
                                     </div>
 
-
+                                    
                                     <div class="product-description">
                                         <span class="marca-produto" th:text="${produto.fabricante}"></span>
                                         <span class="categoria-produto" th:text="${produto.idCategoria.nome}"></span>
+                                        <span class="id-produto" style="display: none" th:text="${produto.idProduto}"></span>
 
                                         <a href="single-product-details.html">
-                                            <h6 class="nome-produto"><span th:text="${produto.nome}"></span></h6>
+                                            <h6 class="nome-produto" th:text="${produto.nome}"></h6>
                                         </a>
                                             <p class="product-price" th:text="'R$' + ${produto.preco}" ></p>
 
@@ -129,6 +114,8 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            
 
 <!--                            <div class="col-12 col-sm-6 col-lg-4">-->
 <!--                                <div class="single-product-wrapper">-->
@@ -186,85 +173,44 @@
         </div>
     </section>
 
+</div>
+   
+</body>
+</html>
 
-
-
-<!--    <script src="js/jquery/jquery-2.2.4.min.js"></script>-->
-<!--    <script src="js/popper.min.js"></script>-->
-<!--    <script src="js/bootstrap.min.js"></script>-->
-<!--    <script src="js/plugins.js"></script>-->
-<!--    <script src="js/classy-nav.min.js"></script>-->
-<!--    <script src="js/active.js"></script>-->
-
-    <script>
-
-
-        /*var carrinho = localStorage['carrinho'];
-        if (carrinho)
-            carrinho = JSON.parse(carrinho);*/
-
-        if (localStorage.getItem("carrinho_pi4") === null) {
-            var carrinho = [];
-            console.log("Não encontrei carrinho na storage. Criei um vazio");
-        } else {
-            var carrinho = JSON.parse(localStorage.getItem("carrinho_pi4"));
-            console.log("Carrinho encontrado no localStorage:");
-            console.log(carrinho);
-        }
-
-
-
-        $(".adicionarproduto").on("click", function () {
+<script>
+            $(".adicionarproduto").on("click", function () {
             var marca = $(this).closest(".product-description").find(".marca-produto").html();
             var imagem = $(this).closest(".single-product-wrapper").find("img").attr("src");
             var nome = $(this).closest(".product-description").find(".nome-produto").html();
             var preco = $(this).closest(".product-description").find(".product-price").html();
-
-            carrinho.push({
-                'marca': marca,
-                'imagem': imagem,
-                'nome': nome,
-                'preco': preco
-            });
-
-            localStorage.setItem('carrinho_pi4', JSON.stringify(carrinho));
-
-        });
-
-        function filtrar(oque, html)
-        {
-            var encontrou = 0;
-            if(oque == "marca")
-            {
-                $('#lista-produtos').children('div').each(function () {
-                    if($(this).find(".marca-produto").html() == html)
-                    {
-                        $(this).show();
-                        encontrou++;
-                    } else {
-                        $(this).hide();
-                    }
-                    //console.log("nome: " + $(this).find(".nome-produto").html());
-                });
-            } else if(oque == "categoria") {
-
-                $('#lista-produtos').children('div').each(function () {
-                    if($(this).find(".categoria-produto").html() == html || html == "Todas")
-                    {
-                        $(this).show();
-                        encontrou++;
-                    } else {
-                        $(this).hide();
-                    }
-                    //console.log("nome: " + $(this).find(".nome-produto").html());
+            var id = $(this).closest(".product-description").find(".id-produto").html();
+            
+            var novoProduto = true;
+            for (var i = 0; i < carrinho["produtos"].length; i++) {
+                if(carrinho["produtos"][i].id == id) {
+                    novoProduto = false;
+                    carrinho["produtos"][i].quantidade += 1;
+                    break;
+                }
+            }
+            
+            if (novoProduto) {
+                carrinho.produtos.push({
+                    'id': id,
+                    'marca': marca,
+                    'imagem': imagem,
+                    'nome': nome,
+                    'preco': preco,
+                    quantidade: 1
                 });
             }
+            
+            carrinho.valor += parseInt(preco.replace("R$", ""));
 
-            $("#produtos-encontrados").html(encontrou);
-        }
+            localStorage.setItem('carrinho_pi4', JSON.stringify(carrinho));
+            
+            $("#essenceCartBtn").click();
 
-    </script>
-</div>
-</body>
-
-</html>
+        });
+</script>

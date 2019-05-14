@@ -2,6 +2,7 @@ package sp.senac.br.pet.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "produto")
@@ -22,7 +23,9 @@ public class Produto implements Serializable {
 
     private int ativo;
 
-
+    @ManyToMany(mappedBy = "produtos", fetch = FetchType.LAZY)
+    private Set<Pedido> pedidos;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "idCategoria", nullable = false

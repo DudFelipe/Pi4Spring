@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html layout:decorate="~{template.html}">
+
+<body>
+<div layout:fragment="conteudo">
+
+<!--Opções de minha conta-->
+    <!-- ##### Meus dados ##### -->
+    <div class="checkout_area section-padding-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <div class="card-columns d-flex justify-content-center">
+                            <div class="card" style="width: 30rem;">
+                              <div class="card-body">
+                                    <h5 class="card-title">Meus dados</h5>
+                                    <label for="first_name">Evelyn Carmo</label>
+                                    <p class="card-text" id="email">E-mail : evelyncarmo95@gmail.com</p>
+                                    <p class="card-text" id="data_nascimento">Data de nascimento: 22/05/1999</p>
+                                    <p class="card-text" id="cpf">CPF : 410.796.67-06</p>
+                                    <p class="card-text" id="telefone">Telefone : (11) 96271-3024</p>
+                                    <a href="cadastro.html" class="card-link">Alterar dados</a>
+    
+                                </div>
+                            </div>
+
+                            <div class="card ml-3" style="width: 30rem;">
+                              <div class="card-body">
+                                    <h5 class="card-title">Meus endereços</h5>
+                                    <label for="first_adress">Endereço 1</label>
+                                    <p class="card-text" id="adress_1_street">Av. Paulista, 2300</p>
+                                    <label for="first_adress">Endereço 2</label>
+                                    <p class="card-text" id="adress_1_street">Rua Professor Acacio de Paula Ferreira, 32</p>
+                                    <a href="alterar-endereço.html" class="card-link">Clique aqui para adicionar</a>
+    
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ##### Meus pedidos ##### -->
+                        <div class="checkout_details_area mt-50 clearfix" >
+                            <h5>Meus pedidos</h5> 
+                            <div class="card ml-12" style="width: 68rem;" th:each="pedido : ${pedidos}">
+                                <div class="card-body">
+                                  <h5 class="card-title" th:text="'Pedido #' + ${pedido.idPedido}">Pedido #1234</h5>
+                                  <ul class="order-details-form mb-4">
+                                    <li><span th:text="'Data do pedido: ' + ${pedido.data}"></span></li>
+                                    <li><span>Frete</span> <span>Grátis</span></li>
+                                    <li><span>Total</span> <span th:text="'R$' + ${pedido.precoVenda}">R$59.90</span></li>
+                                </ul>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                    </div>
+                </div>
+        </div>
+    </div>  
+
+
+
+    
+</div>
+</body>
+
+</html>
