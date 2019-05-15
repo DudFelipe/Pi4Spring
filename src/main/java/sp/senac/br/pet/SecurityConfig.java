@@ -20,8 +20,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             }
 
             @Override
-            public boolean matches(CharSequence cs, String hashSenha) {
-                return hashSenha != null && hashSenha.equals(cs.toString());
+            public boolean matches(CharSequence cs, String salt) {
+                return cs.toString().equals(salt);
             }
         };
     }
@@ -32,11 +32,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return plainPasswordEncoder();
+        return bcryptPasswordEncoder();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/css/**", "/images/**", "/js/**", "/fonts/**", "/scss/**").permitAll()
+                .and()
+                .formLogin()
+                    .loginPage("/login")
+                    .usernameParameter("email")
+                    .passwordParameter("senha")
+                    .defaultSuccessUrl("/index").permitAll();
         /*
         http.csrf().disable()
                 .authorizeRequests()

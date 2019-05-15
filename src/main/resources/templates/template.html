@@ -8,6 +8,7 @@
     <title>Pet Tades</title>
     <link th:href="@{/css/core-style.css}" href="../static/css/core-style.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
 <body>
     <header class="header_area"> <!-- Menu Principal -->
@@ -23,9 +24,9 @@
                     <div class="classynav">
                         <ul>
                             <li><a th:href="@{/index}">Home</a></li>
-                            <li><a href="#">Alimentação</a></li>
-                            <li><a href="#">Brinquedos</a></li>
-                            <li><a href="#">Acessórios</a></li>
+                            <li><a th:href="@{/produto}">Alimentação</a></li>
+                            <li><a th:href="@{/produto}">Brinquedos</a></li>
+                            <li><a th:href="@{/produto}">Acessórios</a></li>
                         </ul>
                     </div>
                 </div>
@@ -36,7 +37,7 @@
                     <a href="#" id="essenceCartBtn"><img th:src="@{/images/core-img/bag.svg}" alt=""></a> <!-- carrinho de compras -->
                 </div>
                 <div class="user-login-info">
-                    <a th:href="@{/login}"><img th:src="@{/images/core-img/user.svg}" alt=""></a> <!-- login -->
+                    <a th:href="@{/login/minhaconta}"><img th:src="@{/images/core-img/user.svg}" alt=""></a> <!-- login -->
                 </div>
             </div>
 
@@ -50,59 +51,22 @@
             <a href="#" id="rightSideCart"><img th:src="@{/images/core-img/bag.svg}" alt=""></a>
         </div>
 
-        <div class="cart-content d-flex">
+        <div class="cart-content d-flex"> 
 
             <div class="cart-list">
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img th:src="@{/images/product-img/brinquedo.webp}" class="cart-thumb" alt="">
-                        <div class="cart-item-desc">
-                            <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Pet Tades</span> <!-- marca do produto -->
-                            <h6>Macaco Maluco</h6> <!-- nome do produto -->
-                            <p class="size">Quantidade: 1</p> <!-- quantidade que ele quer comprar -->
-                            <p class="price">R$20.00</p> <!-- valor por unidade -->
-                        </div>
-                    </a>
-                </div>
-
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img th:src="@{/images/product-img/racao.webp}" class="cart-thumb" alt="">
-                        <div class="cart-item-desc">
-                            <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Pet Tades</span>
-                            <h6>Ração Super Premium</h6>
-                            <p class="size">Quantidade: 2</p>
-                            <p class="price">R$30.00</p>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img th:src="@{images/product-img/tapete.webp}" class="cart-thumb" alt="">
-                        <div class="cart-item-desc">
-                            <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Pet Tades</span>
-                            <h6>Tapete Higiênico</h6>
-                            <p class="size">Quantidade: 1</p>
-                            <p class="price">R$50.00</p>
-                        </div>
-                    </a>
-                </div>
+                
             </div>
 
             <div class="cart-amount-summary"> <!-- resumo das compras -->
 
                 <h2>Resumo</h2>
                 <ul class="summary-table">
-                    <li><span>total:</span> <span>R$130.00</span></li>
+                    <li><span>total:</span> <span id="totalsemfrete">R$130.00</span></li>
                     <li><span>frete:</span> <span>gratis</span></li>
-                    <li><span>total:</span> <span>R$130.00</span></li>
+                    <li><span>total:</span> <span id="totalcomfrete">R$130.00</span></li>
                 </ul>
                 <div class="checkout-btn mt-100">
-                    <a href="#" class="btn essence-btn" style="border-radius: 3px;">finalizar compra</a>
+                    <a th:href="@{/produto/checkout}" class="btn essence-btn finalizarcompra" style="border-radius: 3px;">finalizar</a>
                 </div>
             </div>
         </div>
@@ -167,7 +131,56 @@
         $( document ).ready(function() {
             var bg = Math.floor((Math.random() * 7) + 1);
             $("#sliderprincipal").css("background-image","url('images/slider-3.jpg')");
+            
         });
+        
+        
+        
+        if (localStorage.getItem("carrinho_pi4") === null) {
+            var carrinho = {};
+            carrinho.cliente = 1;
+            carrinho.valor = 0;
+            carrinho.tipoPagamento = 1;
+            carrinho.produtos = [];
+            console.log("Não encontrei carrinho na storage. Criei um vazio");
+        } else {
+            var carrinho = JSON.parse(localStorage.getItem("carrinho_pi4"));
+            console.log("Carrinho encontrado no localStorage:");
+            console.log(carrinho);
+        }
+
+
+        function filtrar(oque, html)
+        {
+            var encontrou = 0;
+            if(oque == "marca")
+            {
+                $('#lista-produtos').children('div').each(function () {
+                    if($(this).find(".marca-produto").html() == html)
+                    {
+                        $(this).show();
+                        encontrou++;
+                    } else {
+                        $(this).hide();
+                    }
+                    //console.log("nome: " + $(this).find(".nome-produto").html());
+                });
+            } else if(oque == "categoria") {
+
+                $('#lista-produtos').children('div').each(function () {
+                    if($(this).find(".categoria-produto").html() == html || html == "Todas")
+                    {
+                        $(this).show();
+                        encontrou++;
+                    } else {
+                        $(this).hide();
+                    }
+                    //console.log("nome: " + $(this).find(".nome-produto").html());
+                });
+            }
+
+            $("#produtos-encontrados").html(encontrou);
+        }
 
     </script>
 
