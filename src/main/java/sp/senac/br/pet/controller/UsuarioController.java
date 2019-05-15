@@ -30,7 +30,7 @@ public class UsuarioController {
     @GetMapping
     public ModelAndView login(Authentication authentication){
         if(authentication != null){
-            return new ModelAndView("redirect:/index");
+            return new ModelAndView("redirect:/login/minhaconta");
         }
 
         return new ModelAndView("login");
