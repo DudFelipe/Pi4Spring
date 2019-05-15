@@ -25,9 +25,9 @@
                     <div class="classynav">
                         <ul>
                             <li><a th:href="@{/index}">Home</a></li>
-                            <li><a href="#">Alimentação</a></li>
-                            <li><a href="#">Brinquedos</a></li>
-                            <li><a href="#">Acessórios</a></li>
+                            <li><a th:href="@{/produto}">Alimentação</a></li>
+                            <li><a th:href="@{/produto}">Brinquedos</a></li>
+                            <li><a th:href="@{/produto}">Acessórios</a></li>
                         </ul>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                     <a href="#" id="essenceCartBtn"><img th:src="@{/images/core-img/bag.svg}" alt=""></a> <!-- carrinho de compras -->
                 </div>
                 <div class="user-login-info">
-                    <a th:href="@{/login}"><img th:src="@{/images/core-img/user.svg}" alt=""></a> <!-- login -->
+                    <a th:href="@{/login/minhaconta}"><img th:src="@{/images/core-img/user.svg}" alt=""></a> <!-- login -->
                 </div>
             </div>
 
@@ -67,7 +67,7 @@
                     <li><span>total:</span> <span id="totalcomfrete">R$130.00</span></li>
                 </ul>
                 <div class="checkout-btn mt-100">
-                    <a th:href="@{/produto/checkout}" class="btn essence-btn finalizarcompra" style="border-radius: 3px;">finalizar compra</a>
+                    <a th:href="@{/produto/checkout}" class="btn essence-btn finalizarcompra" style="border-radius: 3px;">finalizar</a>
                 </div>
             </div>
         </div>

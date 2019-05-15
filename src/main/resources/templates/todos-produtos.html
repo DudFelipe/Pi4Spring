@@ -33,6 +33,7 @@
                                     <!-- Single Item -->
                                     <li>
                                         <ul class="sub-menu collapse show" id="clothing">
+                                            <li><a href="#" onClick="filtrar('categoria', this.innerHTML)">Todas</a></li>
                                             <li th:each="categoria : ${categorias}"><a href="#" onClick="filtrar('categoria', this.innerHTML)" th:text="${categoria.nome}"></a></li>
 
                                         </ul>
@@ -81,7 +82,7 @@
                                 <div class="product-topbar d-flex align-items-center justify-content-between">
                                     <!-- Total Products -->
                                     <div class="total-products">
-                                        <p><span id="produtos-encontrados">3</span> produtos encontrados</p>
+                                        <p><span id="produtos-encontrados">5</span> produtos encontrados</p>
                                     </div>
                                 </div>
                             </div>
