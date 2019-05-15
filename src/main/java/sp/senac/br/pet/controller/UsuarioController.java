@@ -1,7 +1,10 @@
 package sp.senac.br.pet.controller;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,12 +13,19 @@ import sp.senac.br.pet.repository.UsuarioRepository;
 
 import javax.validation.Valid;
 
+import javax.validation.Valid;
+import sp.senac.br.pet.model.Pedido;
+import sp.senac.br.pet.repository.PedidoRepository;
+
 @RestController
 @RequestMapping("/login")
 public class UsuarioController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+    
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
     @GetMapping
     public ModelAndView login(Authentication authentication){
@@ -30,6 +40,14 @@ public class UsuarioController {
     public ModelAndView cadastrar(){ //Mostrar o formulário de cadastro
         ModelAndView mv = new ModelAndView("cadastro");
         mv.addObject("usuario", new Usuario());
+        return mv;
+    }
+    
+    @GetMapping("/minhaconta")
+    public ModelAndView minhaconta(){ //Mostrar o formulário de cadastro
+        List<Pedido> pedidos = pedidoRepository.findAll();
+        
+        ModelAndView mv = new ModelAndView("minhaconta").addObject("pedidos", pedidos);
         return mv;
     }
 
