@@ -12,12 +12,11 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "usuario")
 public class Usuario implements UserDetails {
-
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,6 +71,8 @@ public class Usuario implements UserDetails {
 
     private int ativo;
 
+    @OneToMany(mappedBy = "usuario")
+    private Set<Endereco> enderecos;
 
     /*@AssertTrue(message = "As senhas não são iguais!")
     private boolean isValid(){

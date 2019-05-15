@@ -30,7 +30,14 @@ public class UsuarioController {
     @GetMapping
     public ModelAndView login(Authentication authentication){
         if(authentication != null){
-            return new ModelAndView("redirect:/login/minhaconta");
+            Usuario u = (Usuario)authentication.getPrincipal();
+
+            ModelAndView mv = new ModelAndView("minhaconta");
+            mv.addObject("usuario", u);
+
+            System.out.println("\n" + u.getNome() + "\n");
+
+            return mv;
         }
 
         return new ModelAndView("login");

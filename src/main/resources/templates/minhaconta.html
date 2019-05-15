@@ -14,11 +14,11 @@
                             <div class="card" style="width: 30rem;">
                               <div class="card-body">
                                     <h5 class="card-title">Meus dados</h5>
-                                    <label for="first_name">Evelyn Carmo</label>
-                                    <p class="card-text" id="email">E-mail : evelyncarmo95@gmail.com</p>
-                                    <p class="card-text" id="data_nascimento">Data de nascimento: 22/05/1999</p>
-                                    <p class="card-text" id="cpf">CPF : 410.796.67-06</p>
-                                    <p class="card-text" id="telefone">Telefone : (11) 96271-3024</p>
+                                    <label for="first_name"><span th:text="${usuario.nome}"></span></label>
+                                    <p class="card-text" id="email">E-mail: <span th:text="${usuario.email}"></span></p>
+                                    <p class="card-text" id="data_nascimento">Data de nascimento: <span th:text="${usuario.nascimento}"></span></p>
+                                    <p class="card-text" id="cpf">CPF: <span th:text="${usuario.cpf}"></span></p>
+                                    <p class="card-text" id="telefone">Telefone: <span th:text="${usuario.telefone}"></span></p>
                                     <a href="cadastro.html" class="card-link">Alterar dados</a>
     
                                 </div>
