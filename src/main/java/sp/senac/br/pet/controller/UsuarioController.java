@@ -4,11 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import sp.senac.br.pet.model.Usuario;
 import sp.senac.br.pet.repository.UsuarioRepository;
 
 import javax.validation.Valid;
+
+import javax.validation.Valid;
+import sp.senac.br.pet.model.Pedido;
+import sp.senac.br.pet.repository.PedidoRepository;
 
 @RestController
 @RequestMapping("/login")
@@ -20,7 +26,14 @@ public class UsuarioController {
     @GetMapping
     public ModelAndView login(Authentication authentication){
         if(authentication != null){
-            return new ModelAndView("redirect:/index");
+            Usuario u = (Usuario)authentication.getPrincipal();
+
+            ModelAndView mv = new ModelAndView("minhaconta");
+            mv.addObject("usuario", u);
+
+            System.out.println("\n" + u.getNome() + "\n");
+
+            return mv;
         }
 
         return new ModelAndView("login");
