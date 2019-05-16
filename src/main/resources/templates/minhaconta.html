@@ -14,12 +14,12 @@
                             <div class="card" style="width: 30rem;">
                               <div class="card-body">
                                     <h5 class="card-title">Meus dados</h5>
-                                    <label for="first_name"><span th:text="${usuario.nome}"></span></label>
+                                    <label><span th:text="${usuario.nome}"></span></label>
                                     <p class="card-text" id="email">E-mail: <span th:text="${usuario.email}"></span></p>
                                     <p class="card-text" id="data_nascimento">Data de nascimento: <span th:text="${usuario.nascimento}"></span></p>
                                     <p class="card-text" id="cpf">CPF: <span th:text="${usuario.cpf}"></span></p>
                                     <p class="card-text" id="telefone">Telefone: <span th:text="${usuario.telefone}"></span></p>
-                                    <a href="cadastro.html" class="card-link">Alterar dados</a>
+                                    <a th:href="@{/login/alterar/{id}(id=${usuario.idUsuario})}" class="card-link">Alterar dados</a>
     
                                 </div>
                             </div>
@@ -27,11 +27,15 @@
                             <div class="card ml-3" style="width: 30rem;">
                               <div class="card-body">
                                     <h5 class="card-title">Meus endereços</h5>
-                                    <label for="first_adress">Endereço 1</label>
+                                    <div th:each="endereco : ${usuario.enderecos}">
+                                        <label for="first_adress">Teste</label>
+                                        <p class="card-text" th:text="${endereco.rua} + ', ' + ${endereco.numero}"></p>
+                                    </div>
+                                    <!--<label for="first_adress">Endereço 1</label>
                                     <p class="card-text" id="adress_1_street">Av. Paulista, 2300</p>
                                     <label for="first_adress">Endereço 2</label>
-                                    <p class="card-text" id="adress_1_street">Rua Professor Acacio de Paula Ferreira, 32</p>
-                                    <a href="alterar-endereço.html" class="card-link">Clique aqui para adicionar</a>
+                                    <p class="card-text" id="adress_1_street">Rua Professor Acacio de Paula Ferreira, 32</p>-->
+                                    <a th:href="@{/login/endereco}" class="card-link">Clique aqui para adicionar</a>
     
                                 </div>
                             </div>

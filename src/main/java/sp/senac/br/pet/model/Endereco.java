@@ -19,7 +19,7 @@ public class Endereco {
     private String apelido;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "idusuario")
     private Usuario usuario;
 
     public int getId() {

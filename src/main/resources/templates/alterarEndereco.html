@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html layout:decorate="~{template.html}">
+
+<body>
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb_area bg-img" style="background-image: url(img/bg-img/breadcumb.jpg);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="page-title text-center">
+                    <h2>Adicionar Endereço</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ##### Breadcumb Area End ##### -->
+<div layout:fragment="conteudo">
+<!-- ##### Blog Wrapper Area Start ##### -->
+<div class="single-blog-wrapper">
+
+    <!-- Single Blog Post Thumb -->
+
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+                <div class="regular-page-content-wrapper section-padding-80">
+                    <div class="regular-page-text">
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="mb-2">
+                                    <img th:src="@{/images/cadastro.jpg}" class="img-fluid">
+                                </div>
+                            </div>
+                            <form method="post" th:action="@{/login/endereco}">
+                                <div class="col-lg-6 col-md-12"
+                                     style="padding: 5%; background: #a7a7a700; box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19); border-radius: 15px;">
+                                    <div class="form-row">
+                                        <div class="form-group col-lg-12 col-md-12">
+                                            <label for="street_address">Rua <span>*</span></label>
+                                            <input type="text" class="form-control mb-3" id="street_address" th:field="${endereco.rua}">
+                                        </div>
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label for="postcode">CEP <span>*</span></label>
+                                            <input type="text" class="form-control" id="postcode" th:field="${endereco.cep}">
+                                        </div>
+                                        <div class="form-group col-lg-12 col-md-12">
+                                            <label for="district">Bairro <span>*</span></label>
+                                            <input type="text" class="form-control" id="district" th:field="${endereco.bairro}">
+                                        </div>
+                                        <div class="form-group col-lg-12 col-md-12">
+                                            <label for="complemento">Complemento </label>
+                                            <input type="text" class="form-control" id="complemento" th:field="${endereco.referencia}">
+                                        </div>
+                                        <!--<div class="form-group col-lg-8 col-md-12">
+                                            <label for="city">Cidade <span>*</span></label>
+                                            <input type="text" class="form-control" id="city">
+                                        </div>
+                                        <div class="form-group col-lg-8 col-md-12">
+                                            <label for="state">Estado <span>*</span></label>
+                                            <input type="text" class="form-control" id="state" value="" required>
+                                        </div>-->
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-12">
+                                            <input type="submit" class="btn essence-btn" value="Cadastrar ">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+
+</html>
