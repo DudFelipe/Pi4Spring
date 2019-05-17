@@ -28,13 +28,9 @@
                               <div class="card-body">
                                     <h5 class="card-title">Meus endereços</h5>
                                     <div th:each="endereco : ${usuario.enderecos}">
-                                        <label for="first_adress">Teste</label>
+                                        <label for="first_adress" th:text="${endereco.apelido}"></label>
                                         <p class="card-text" th:text="${endereco.rua} + ', ' + ${endereco.numero}"></p>
                                     </div>
-                                    <!--<label for="first_adress">Endereço 1</label>
-                                    <p class="card-text" id="adress_1_street">Av. Paulista, 2300</p>
-                                    <label for="first_adress">Endereço 2</label>
-                                    <p class="card-text" id="adress_1_street">Rua Professor Acacio de Paula Ferreira, 32</p>-->
                                     <a th:href="@{/login/endereco}" class="card-link">Clique aqui para adicionar</a>
     
                                 </div>

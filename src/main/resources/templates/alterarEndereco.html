@@ -39,33 +39,100 @@
                                 <div class="col-lg-6 col-md-12"
                                      style="padding: 5%; background: #a7a7a700; box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19); border-radius: 15px;">
                                     <div class="form-row">
-                                        <div class="form-group col-lg-12 col-md-12">
+                                        <div class="form-group col-lg-6 col-md-6">
                                             <label for="street_address">Rua <span>*</span></label>
-                                            <input type="text" class="form-control mb-3" id="street_address" th:field="${endereco.rua}">
+                                            <div>
+                                                <input type="text" class="form-control mb-3" id="street_address"
+                                                       th:field="${endereco.rua}" th:classappend="${#fields.hasErrors('endereco.rua')}? is-invalid">
+                                                <div class="invalid-feedback"
+                                                     th:if="${#fields.hasErrors('endereco.rua')}"
+                                                     th:errors="${endereco.rua}">
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-group col-lg-6 col-md-12">
-                                            <label for="postcode">CEP <span>*</span></label>
-                                            <input type="text" class="form-control" id="postcode" th:field="${endereco.cep}">
+                                        <div class="form-group col-lg-6 col-md-6">
+                                            <label for="numero">Numero <span>*</span></label>
+                                            <div>
+                                                <input type="text" class="form-control" id="numero"
+                                                       th:field="${endereco.numero}" th:classappend="${#fields.hasErrors('endereco.numero')}? is-invalid">
+                                                <div class="invalid-feedback"
+                                                     th:if="${#fields.hasErrors('endereco.numero')}"
+                                                     th:errors="${endereco.numero}">
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-group col-lg-12 col-md-12">
-                                            <label for="district">Bairro <span>*</span></label>
-                                            <input type="text" class="form-control" id="district" th:field="${endereco.bairro}">
-                                        </div>
-                                        <div class="form-group col-lg-12 col-md-12">
-                                            <label for="complemento">Complemento </label>
-                                            <input type="text" class="form-control" id="complemento" th:field="${endereco.referencia}">
-                                        </div>
-                                        <!--<div class="form-group col-lg-8 col-md-12">
-                                            <label for="city">Cidade <span>*</span></label>
-                                            <input type="text" class="form-control" id="city">
-                                        </div>
-                                        <div class="form-group col-lg-8 col-md-12">
-                                            <label for="state">Estado <span>*</span></label>
-                                            <input type="text" class="form-control" id="state" value="" required>
-                                        </div>-->
                                     </div>
+
                                     <div class="form-row">
-                                        <div class="form-group col-12">
+                                        <div class="form-group col-lg-6 col-md-6">
+                                            <label for="postcode">CEP <span>*</span></label>
+                                            <div>
+                                                <input type="text" class="form-control" id="postcode"
+                                                       th:field="${endereco.cep}" th:classappend="${#fields.hasErrors('endereco.cep')}? is-invalid">
+                                                <div class="invalid-feedback"
+                                                     th:if="${#fields.hasErrors('endereco.cep')}"
+                                                     th:errors="${endereco.cep}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-lg-6 col-md-6">
+                                            <label for="district">Bairro <span>*</span></label>
+                                            <div>
+                                                <input type="text" class="form-control" id="district"
+                                                       th:field="${endereco.bairro}" th:classappend="${#fields.hasErrors('endereco.bairro')}? is-invalid">
+                                                <div class="invalid-feedback"
+                                                     th:if="${#fields.hasErrors('endereco.bairro')}"
+                                                     th:errors="${endereco.bairro}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-lg-6 col-md-6">
+                                            <label for="city">Cidade <span>*</span></label>
+                                            <div>
+                                                <input type="text" class="form-control" id="city"
+                                                       th:field="${endereco.cidade}" th:classappend="${#fields.hasErrors('endereco.cidade')}? is-invalid">
+                                                <div class="invalid-feedback"
+                                                     th:if="${#fields.hasErrors('endereco.cidade')}"
+                                                     th:errors="${endereco.cidade}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-lg-6 col-md-6">
+                                            <label for="state">Estado <span>*</span></label>
+                                            <div>
+                                                <input type="text" class="form-control" id="state"
+                                                       th:field="${endereco.estado}" th:classappend="${#fields.hasErrors('endereco.estado')}? is-invalid">
+                                                <div class="invalid-feedback"
+                                                     th:if="${#fields.hasErrors('endereco.estado')}"
+                                                     th:errors="${endereco.estado}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-lg-6 col-md-6">
+                                            <label for="complemento">Complemento </label>
+                                            <input type="text" class="form-control" id="complemento" th:field="${endereco.complemento}">
+                                        </div>
+                                        <div class="form-group col-lg-6 col-md-6">
+                                            <label for="state">Apelido <span>*</span></label>
+                                            <div>
+                                                <input type="text" class="form-control" id="apelido"
+                                                       th:field="${endereco.apelido}" th:classappend="${#fields.hasErrors('endereco.apelido')}? is-invalid">
+                                                <div class="invalid-feedback"
+                                                     th:if="${#fields.hasErrors('endereco.apelido')}"
+                                                     th:errors="${endereco.apelido}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-lg-6 col-md-12">
                                             <input type="submit" class="btn essence-btn" value="Cadastrar ">
                                         </div>
                                     </div>

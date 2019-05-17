@@ -133,16 +133,21 @@ public class UsuarioController {
     @PostMapping("/endereco")
     public ModelAndView endereco(
             @ModelAttribute("endereco") @Valid Endereco e,
-            Authentication authentication){
-        ModelAndView mv = new ModelAndView("redirect:/login");
+            BindingResult bindingResult, Authentication authentication){
 
-        if(authentication != null){
+        if(bindingResult.hasErrors()){
+            System.out.println("\nteste\n");
+            return new ModelAndView("alterarEndereco");
+        }
+        else if(authentication != null){
             Usuario u = (Usuario) authentication.getPrincipal();
             e.setUsuario(u);
 
             enderecoRepository.save(e);
+
+            return new ModelAndView("redirect:/login");
         }
 
-        return mv;
+        return new ModelAndView("redirect:/login");
     }
 }
