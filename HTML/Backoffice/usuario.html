@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<head>
+    <!-- Title Page-->
+    <title>Produtos</title>
+
+    <!-- Fontfaces CSS-->
+    <link href="css/font-face.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="css/theme.css" rel="stylesheet" media="all">
+
+</head>
+
+<body class="animsition">
+    <div class="page-wrapper">
+        <!-- HEADER MOBILE-->
+        <header class="header-mobile d-block d-lg-none">
+            <div class="header-mobile__bar">
+                <div class="container-fluid">
+                    <div class="header-mobile-inner">
+                        <a class="logo" href="index.html">
+                            <img src="images/icon/logo.png" alt="CoolAdmin" />
+                        </a>
+                        <button class="hamburger hamburger--slider" type="button">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar-mobile">
+                <div class="container-fluid">
+                    <ul class="navbar-mobile__list list-unstyled">
+                        <ul class="list-unstyled navbar__list">
+                            <li class="has-sub">
+                                <a class="js-arrow" href="#">
+                                    <i class="fas  fa-list-alt"></i>Produtos</a>
+                            </li>
+                            <li class="has-sub">
+                                <a class="js-arrow" href="#">
+                                    <i class="fas fa-user"></i>Gestão de usuarios</a>
+                            </li>
+                            <li class="has-sub">
+                                <a class="js-arrow" href="#">
+                                    <i class="fas  fa-bar-chart-o"></i>Relatorios</a>
+                            </li>
+                            <li class="has-sub">
+                                <a class="js-arrow" href="#">
+                                    <i class="fas  fa-power-off"></i>Sair</a>
+                            </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- END HEADER MOBILE-->
+
+        <!-- MENU SIDEBAR-->
+        <aside class="menu-sidebar d-none d-lg-block">
+            <div class="logo">
+                <a href="#">
+                    <img src="images/icon/logo.png" alt="Cool Admin" />
+                </a>
+            </div>
+            <div class="menu-sidebar__content js-scrollbar1">
+                <nav class="navbar-sidebar">
+                    <ul class="list-unstyled navbar__list">
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas  fa-list-alt"></i>Produtos</a>
+                        </li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-user"></i>Gestão de usuarios</a>
+                        </li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas  fa-bar-chart-o"></i>Relatorios</a>
+                        </li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas  fa-power-off"></i>Sair</a>
+                        </li>
+                    </ul>
+                </nav>  
+            </div>
+        </aside>
+        <!-- END MENU SIDEBAR-->
+
+        <!-- PAGE CONTAINER-->
+        <div class="page-container">
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                    <div class="au-card chart-percent-card">
+                                    <div class="container">
+                                        <h1 style="text-align: center">Gerenciamento de Produtos</h1>
+                                    
+                                        <div class="alert alert-success" th:if="${#httpServletRequest.getParameter('sucesso') == 'true'}">
+                                            Produto Excluido com sucesso
+                                        </div>
+                                    
+                                        <div class="alert alert-success" th:if="${#httpServletRequest.getParameter('insert') == 'true'}">
+                                            Produto Inserido com sucesso
+                                        </div>
+                                    
+                                        <table class="table">
+                                            <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Nome</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Ações</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="produto : ${produtos}">
+                                                <td th:text="${produto.idProduto}"></td>
+                                                <td th:text="${produto.nome}"></td>
+                                                <td th:text="${produto.ativo == 1? 'Disponivel' : 'Indisponivel'}" th:style="${produto.ativo == 1 ? 'color: green;' : 'color: red;'}"></td>
+                                                <td>
+                                                    <a class="btn btn-primary col-md-4" th:href="@{/admin/alterar/{id}(id=${produto.idProduto})}">Alterar</a>
+                                                    &nbsp;&nbsp;
+                                                    <a class="btn btn-danger col-md-4 excluiProduto" th:attr="idProduto = ${produto.idProduto}, nomeProduto = ${produto.nome}" th:href="@{/admin/excluir/{id}(id=${produto.idProduto})}">Excluir</a>
+                                    
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    
+                                    
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Remover Produto</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div>Deseja remover o produto <span id="nomeProdutoModal"></span>?</div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a href="/produto"><button id="sim" class="btn btn-success" >Sim</button></a>
+                                                        <button id="naoexcluir" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                        <a class="btn btn-success" th:href="@{/admin/adicionar}">Adicionar Novo</a>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                      
+                               
+                    </div>
+                </div>
+                        
+            </div>
+        </div>
+                     
+    </div>
+
+    <!-- Jquery JS-->
+    <script src="vendor/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <!-- Vendor JS       -->
+    <script src="vendor/slick/slick.min.js">
+    </script>
+    <script src="vendor/wow/wow.min.js"></script>
+    <script src="vendor/animsition/animsition.min.js"></script>
+    <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    </script>
+    <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
+    <script src="vendor/counter-up/jquery.counterup.min.js">
+    </script>
+    <script src="vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="vendor/chartjs/Chart.bundle.min.js"></script>
+    <script src="vendor/select2/select2.min.js">
+    </script>
+
+    <!-- Main JS-->
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
+<!-- end document-->
