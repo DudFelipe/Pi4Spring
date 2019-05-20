@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <!-- Title Page-->
-    <title>Produtos</title>
+    <title>Usuario</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -81,11 +81,11 @@
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                         <li class="has-sub">
-                            <a class="js-arrow" href="#">
+                            <a class="js-arrow" href="cadastroProduto.html">
                                 <i class="fas  fa-list-alt"></i>Produtos</a>
                         </li>
                         <li class="has-sub">
-                            <a class="js-arrow" href="#">
+                            <a class="js-arrow" href="cadastroUsuario.html">
                                 <i class="fas fa-user"></i>Gestão de usuarios</a>
                         </li>
                         <li class="has-sub">
@@ -112,7 +112,7 @@
                             <div class="col-lg-12">
                                     <div class="au-card chart-percent-card">
                                     <div class="container">
-                                        <h1 style="text-align: center">Gerenciamento de Produtos</h1>
+                                        <h1 style="text-align: center">Gerenciamento de usuarios</h1>
                                     
                                         <div class="alert alert-success" th:if="${#httpServletRequest.getParameter('sucesso') == 'true'}">
                                             Produto Excluido com sucesso
