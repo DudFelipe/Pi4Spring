@@ -1,6 +1,8 @@
 package sp.senac.br.pet.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "enderecoentrega")
@@ -11,15 +13,38 @@ public class Endereco {
     @Column(name = "idenderecoentrega")
     private int id;
 
+    @NotBlank(message = "Preencha a rua!")
+    @Size(max = 200)
     private String rua;
-    private int numero;
-    private int cep;
+
+    @NotBlank(message = "Preencha o número!")
+    @Size(max = 11)
+    private String numero;
+
+    @NotBlank(message = "Preencha o CEP!")
+    @Size(max = 11)
+    private String cep;
+
+    @NotBlank(message = "Preencha o bairro!")
+    @Size(max = 45)
     private String bairro;
-    private String referencia;
+
+    private String complemento;
+
+    @NotBlank(message = "Preencha o apelido!")
+    @Size(max = 20)
     private String apelido;
 
+    @NotBlank(message = "Preencha a cidade!")
+    @Size(max = 40)
+    private String cidade;
+
+    @NotBlank(message = "Preencha o estado!")
+    @Size(max = 40)
+    private String estado;
+
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "idusuario")
     private Usuario usuario;
 
     public int getId() {
@@ -38,19 +63,19 @@ public class Endereco {
         this.rua = rua;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
-    public int getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(int cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 
@@ -62,12 +87,12 @@ public class Endereco {
         this.bairro = bairro;
     }
 
-    public String getReferencia() {
-        return referencia;
+    public String getComplemento() {
+        return complemento;
     }
 
-    public void setReferencia(String referencia) {
-        this.referencia = referencia;
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 
     public String getApelido() {
@@ -76,6 +101,22 @@ public class Endereco {
 
     public void setApelido(String apelido) {
         this.apelido = apelido;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public Usuario getUsuario() {
