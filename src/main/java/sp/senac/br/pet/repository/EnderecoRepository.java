@@ -5,8 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import sp.senac.br.pet.model.Endereco;
 import sp.senac.br.pet.model.Usuario;
-
-import java.util.List;
 import java.util.Set;
 
 public interface EnderecoRepository extends JpaRepository<Endereco, Integer> {

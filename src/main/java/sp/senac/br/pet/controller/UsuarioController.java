@@ -119,7 +119,7 @@ public class UsuarioController {
     public ModelAndView minhaconta() { //Mostrar o formulário de cadastro
         List<Pedido> pedidos = pedidoRepository.findAll();
 
-        ModelAndView mv = new ModelAndView("minhaconta").addObject("pedidos", pedidos);
+        ModelAndView mv = new ModelAndView("redirect:/login/minhaconta").addObject("pedidos", pedidos);
         return mv;
     }
 
@@ -136,7 +136,6 @@ public class UsuarioController {
             BindingResult bindingResult, Authentication authentication){
 
         if(bindingResult.hasErrors()){
-            System.out.println("\nteste\n");
             return new ModelAndView("alterarEndereco");
         }
         else if(authentication != null){
