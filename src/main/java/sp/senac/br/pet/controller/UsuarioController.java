@@ -103,7 +103,7 @@ public class UsuarioController {
             Usuario user = usuarioRepository.getOne(id);
             user.setNome(u.getNome() + " " + u.getSobrenome());
             user.setSobrenome(u.getSobrenome());
-            //user.setHashSenha(u.getHashSenha());
+            user.setSenha(u.getHashSenha());
             user.setCpf(u.getCpf());
             user.setEmail(u.getEmail());
             user.setNascimento(u.getNascimento());
@@ -111,6 +111,9 @@ public class UsuarioController {
             user.setTelefone(u.getTelefone());
 
             usuarioRepository.save(user);
+
+            authentication.setAuthenticated(false);
+
             return mv;
         }
     }

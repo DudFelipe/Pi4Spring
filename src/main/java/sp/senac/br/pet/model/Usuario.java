@@ -1,21 +1,32 @@
 package sp.senac.br.pet.model;
 
 import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import sp.senac.br.pet.SecurityConfig;
+import sp.senac.br.pet.constraint.FieldMatch;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Set;
 
 @Entity
 @Table(name = "usuario")
+/*@FieldMatch.List({
+    @FieldMatch(
+            first = "hashSenha",
+            second = "csenha",
+            message = "Confirmação de senha não bate!"
+    ),
+    @FieldMatch(
+            first = "email",
+            second = "cemail",
+            message = "Confirmação de email não bate!"
+    )
+})*/
 public class Usuario implements UserDetails {
 
     @Id
@@ -45,8 +56,8 @@ public class Usuario implements UserDetails {
     @Email(message = "Email inválido!")
     private String email;
 
-    /*@Transient
-    private String cemail;*/
+    @Transient
+    private String cemail;
 
     private char sexo;
 
@@ -54,8 +65,8 @@ public class Usuario implements UserDetails {
     @Column(name = "senha")
     private String hashSenha;
 
-    /*@Transient
-    private String csenha;*/
+    @Transient
+    private String csenha;
 
     /**
      * tipoAcesso = 1 -> Acesso de Cliente
@@ -74,10 +85,6 @@ public class Usuario implements UserDetails {
     @OneToMany(mappedBy = "usuario")
     private Set<Endereco> enderecos;
 
-    /*@AssertTrue(message = "As senhas não são iguais!")
-    private boolean isValid(){
-        return this.hashSenha.equals(this.csenha);
-    }*/
     public Usuario() {
     }
 
@@ -137,6 +144,14 @@ public class Usuario implements UserDetails {
         this.email = email;
     }
 
+    public String getCemail() {
+        return cemail;
+    }
+
+    public void setCemail(String cemail) {
+        this.cemail = cemail;
+    }
+
     public char getSexo() {
         return sexo;
     }
@@ -145,7 +160,7 @@ public class Usuario implements UserDetails {
         this.sexo = sexo;
     }
 
-    public final void setSenha(String senha) {
+    public void setSenha(String senha) {
         this.hashSenha =
                 SecurityConfig.bcryptPasswordEncoder()
                         .encode(senha);
@@ -159,14 +174,14 @@ public class Usuario implements UserDetails {
         this.hashSenha = hashSenha;
     }
 
-    /*public String getCsenha() {
+    public String getCsenha() {
         return csenha;
     }
 
-    public final void setCsenha(String csenha) {
+    public void setCsenha(String csenha) {
         this.csenha = SecurityConfig.bcryptPasswordEncoder()
                 .encode(csenha);
-    }*/
+    }
 
     public int getTipoAcesso() {
         return tipoAcesso;
