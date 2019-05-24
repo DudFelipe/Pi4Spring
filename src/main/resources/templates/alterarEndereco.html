@@ -41,6 +41,20 @@
                                     <form method="post" th:action="@{/login/endereco}">
                                         <div class="form-row">
                                             <div class="form-group col-lg-6 col-md-6">
+                                                <label for="postcode">CEP <span>*</span></label>
+                                                <div>
+                                                    <input type="text" class="form-control" id="postcode"
+                                                           th:field="${endereco.cep}"
+                                                           th:classappend="${#fields.hasErrors('endereco.cep')}? is-invalid">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('endereco.cep')}"
+                                                         th:errors="${endereco.cep}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-lg-12 col-md-12">
                                                 <label for="street_address">Rua <span>*</span></label>
                                                 <div>
                                                     <input type="text" class="form-control mb-3" id="street_address"
@@ -52,6 +66,10 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            
+                                        </div>
+
+                                        <div class="form-row">
                                             <div class="form-group col-lg-6 col-md-6">
                                                 <label for="numero">Numero <span>*</span></label>
                                                 <div>
@@ -64,21 +82,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div class="form-row">
-                                            <div class="form-group col-lg-6 col-md-6">
-                                                <label for="postcode">CEP <span>*</span></label>
-                                                <div>
-                                                    <input type="text" class="form-control" id="postcode"
-                                                           th:field="${endereco.cep}"
-                                                           th:classappend="${#fields.hasErrors('endereco.cep')}? is-invalid">
-                                                    <div class="invalid-feedback"
-                                                         th:if="${#fields.hasErrors('endereco.cep')}"
-                                                         th:errors="${endereco.cep}">
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
                                             <div class="form-group col-lg-6 col-md-6">
                                                 <label for="district">Bairro <span>*</span></label>
                                                 <div>
@@ -158,3 +162,19 @@
 </body>
 
 </html>
+
+<script>
+    $("#postcode").on("change", function(){
+     var cep = $("#postcode").val().replace("-","");     
+     var url = "https://viacep.com.br/ws/" + cep + "/json/";
+     
+    $.get( url, function( data ) {
+        $("#street_address").val(data.logradouro);
+        $("#district").val(data.bairro);
+        $("#city").val(data.localidade);
+        $("#state").val(data.uf);
+        $("#complemento").val(data.complemento);
+    });
+     
+    });
+</script>

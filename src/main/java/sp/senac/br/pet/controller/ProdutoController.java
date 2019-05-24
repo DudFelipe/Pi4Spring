@@ -16,9 +16,15 @@ import sp.senac.br.pet.repository.ProdutoRepository;
 
 import java.util.List;
 import java.util.Set;
+import javax.validation.Valid;
+import org.springframework.security.core.Authentication;
+import org.springframework.validation.BindingResult;
 
 import sp.senac.br.pet.model.Carrinho;
+import sp.senac.br.pet.model.Endereco;
 import sp.senac.br.pet.model.Pedido;
+import sp.senac.br.pet.model.Usuario;
+import sp.senac.br.pet.repository.EnderecoRepository;
 import sp.senac.br.pet.repository.PedidoRepository;
 
 @RestController
@@ -33,6 +39,9 @@ public class ProdutoController {
     
     @Autowired
     private PedidoRepository pedidoRepository;
+    
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
 
     @GetMapping()
@@ -51,7 +60,7 @@ public class ProdutoController {
     
     @GetMapping("/checkout")
     public ModelAndView checkout(){
-        ModelAndView mv = new ModelAndView("checkout");
+        ModelAndView mv = new ModelAndView("checkout").addObject("endereco", new Endereco());
         return mv;
     }
     
@@ -93,6 +102,26 @@ public class ProdutoController {
         mv.addObject("produto", p);
 
         return mv;
+    }
+    
+    @PostMapping("/endereco")
+    public ModelAndView endereco(
+            @ModelAttribute("endereco") @Valid Endereco e,
+            BindingResult bindingResult, Authentication authentication){
+
+        if(bindingResult.hasErrors()){
+            return new ModelAndView("alterarEndereco");
+        }
+        else if(authentication != null){
+            Usuario u = (Usuario) authentication.getPrincipal();
+            e.setUsuario(u);
+
+            enderecoRepository.save(e);
+
+            return new ModelAndView("redirect:/checkout");
+        }
+
+        return new ModelAndView("redirect:/login");
     }
 
 }
