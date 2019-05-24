@@ -128,14 +128,6 @@
     <script th:src="@{/js/active.js}"></script>
 
     <script>
-        $( document ).ready(function() {
-            var bg = Math.floor((Math.random() * 7) + 1);
-            $("#sliderprincipal").css("background-image","url('images/slider-3.jpg')");
-            
-        });
-        
-        
-        
         if (localStorage.getItem("carrinho_pi4") === null) {
             var carrinho = {};
             carrinho.cliente = 1;
@@ -148,6 +140,28 @@
             console.log("Carrinho encontrado no localStorage:");
             console.log(carrinho);
         }
+        
+        $( document ).ready(function() {
+            var bg = Math.floor((Math.random() * 7) + 1);
+            $("#sliderprincipal").css("background-image","url('images/slider-3.jpg')");
+
+        });   
+        
+        $(document).on('click', '.removeprodutobtn', function(){
+                var id = $(this).closest(".cart-list").find(".id-produto-cart").html();
+                
+                for (var i = 0; i < carrinho["produtos"].length; i++) {
+                    if(carrinho["produtos"][i].id == id) {
+                        carrinho["produtos"].splice(i, 1);                       
+                        break;
+                    }
+                }
+                
+             $(this).closest(".cart-list").find(".single-cart-item").remove();
+             $("#essenceCartBtn").click();
+             localStorage.setItem('carrinho_pi4', JSON.stringify(carrinho));
+                
+        });
 
 
         function filtrar(oque, html)

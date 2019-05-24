@@ -8,6 +8,7 @@
     <title>Pet Tades - INDEX</title>
     <link rel="stylesheet" href="css/core-style.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://www.paypal.com/sdk/js?currency=BRL&client-id=ARArjp2EwGPjabdjOB2XRpA6qsEuB1oM9BoXw_A7W_LF6knNUlJtNoPooqFChq9XlfTus0Yd3tw4cBud"></script>
 </head>
 <body>
 <div layout:fragment="conteudo">
@@ -56,46 +57,118 @@
                             <h5>Endereço de Entrega</h5>
                         </div>
 
-                        <form action="#" method="post">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="first_name">Nome <span>*</span></label>
-                                    <input type="text" class="form-control" id="first_name" value="" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="last_name">Sobrenome <span>*</span></label>
-                                    <input type="text" class="form-control" id="last_name" value="" required>
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <label for="street_address">Rua <span>*</span></label>
-                                    <input type="text" class="form-control mb-3" id="street_address" value="">
-                                    <input type="text" class="form-control" id="street_address2" value="">
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <label for="postcode">CEP <span>*</span></label>
-                                    <input type="text" class="form-control" id="postcode" value="">
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <label for="city">Cidade <span>*</span></label>
-                                    <input type="text" class="form-control" id="city" value="">
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <label for="state">Estado <span>*</span></label>
-                                    <input type="text" class="form-control" id="state" value="">
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <label for="phone_number">Telefone <span>*</span></label>
-                                    <input type="number" class="form-control" id="phone_number" min="0" value="">
-                                </div>
+                        <form method="post" th:action="@{/produto/endereco}">
+                                        <div class="form-row">
+                                            <div class="form-group col-lg-6 col-md-6">
+                                                <label for="postcode">CEP <span>*</span></label>
+                                                <div>
+                                                    <input type="text" class="form-control" id="postcode"
+                                                           th:field="${endereco.cep}"
+                                                           th:classappend="${#fields.hasErrors('endereco.cep')}? is-invalid">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('endereco.cep')}"
+                                                         th:errors="${endereco.cep}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-lg-12 col-md-12">
+                                                <label for="street_address">Rua <span>*</span></label>
+                                                <div>
+                                                    <input type="text" class="form-control mb-3" id="street_address"
+                                                           th:field="${endereco.rua}"
+                                                           th:classappend="${#fields.hasErrors('endereco.rua')}? is-invalid">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('endereco.rua')}"
+                                                         th:errors="${endereco.rua}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
 
-                                <div class="col-12">
-                                    <div class="custom-control custom-checkbox d-block mb-2">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                        <label class="custom-control-label" for="customCheck1">Aceito os termos e condições</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                                        <div class="form-row">
+                                            <div class="form-group col-lg-6 col-md-6">
+                                                <label for="numero">Numero <span>*</span></label>
+                                                <div>
+                                                    <input type="text" class="form-control" id="numero"
+                                                           th:field="${endereco.numero}"
+                                                           th:classappend="${#fields.hasErrors('endereco.numero')}? is-invalid">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('endereco.numero')}"
+                                                         th:errors="${endereco.numero}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group col-lg-6 col-md-6">
+                                                <label for="district">Bairro <span>*</span></label>
+                                                <div>
+                                                    <input type="text" class="form-control" id="district"
+                                                           th:field="${endereco.bairro}"
+                                                           th:classappend="${#fields.hasErrors('endereco.bairro')}? is-invalid">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('endereco.bairro')}"
+                                                         th:errors="${endereco.bairro}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-lg-6 col-md-6">
+                                                <label for="city">Cidade <span>*</span></label>
+                                                <div>
+                                                    <input type="text" class="form-control" id="city"
+                                                           th:field="${endereco.cidade}"
+                                                           th:classappend="${#fields.hasErrors('endereco.cidade')}? is-invalid">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('endereco.cidade')}"
+                                                         th:errors="${endereco.cidade}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-lg-6 col-md-6">
+                                                <label for="state">Estado <span>*</span></label>
+                                                <div>
+                                                    <input type="text" class="form-control" id="state"
+                                                           th:field="${endereco.estado}"
+                                                           th:classappend="${#fields.hasErrors('endereco.estado')}? is-invalid">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('endereco.estado')}"
+                                                         th:errors="${endereco.estado}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-lg-6 col-md-6">
+                                                <label for="complemento">Complemento </label>
+                                                <input type="text" class="form-control" id="complemento"
+                                                       th:field="${endereco.complemento}">
+                                            </div>
+                                            <div class="form-group col-lg-6 col-md-6">
+                                                <label for="state">Apelido <span>*</span></label>
+                                                <div>
+                                                    <input type="text" class="form-control" id="apelido"
+                                                           th:field="${endereco.apelido}"
+                                                           th:classappend="${#fields.hasErrors('endereco.apelido')}? is-invalid">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('endereco.apelido')}"
+                                                         th:errors="${endereco.apelido}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-lg-6 col-md-12">
+                                                <input type="submit" class="btn essence-btn" value="Cadastrar ">
+                                            </div>
+                                        </div>
+                                    </form>
                     </div>
                 </div>
 
@@ -119,7 +192,7 @@
                                 </div>
                                 <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
                                     <div class="card-body">
-                                        <p>Este método de pagamento será processado pelo gateway externo PAGSEGURO.</p>
+                                        <p></p>
                                     </div>
                                 </div>
                             </div>
@@ -131,10 +204,12 @@
                                 </div>
                                 <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
                                     <div class="card-body">
-                                        <p>Este método de pagamento será processado pelo gateway externo PAGSEGURO.</p>
+                                        <p></p>
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div id="paypal-button-container"></div>
                         </div>
 
                         <a href="#" class="btn essence-btn finalizarcompra">Finalizar compra</a>
@@ -151,7 +226,7 @@
 
 <script>
     var tipoPagamento = 0;
-$( document ).ready(function() {
+    $( document ).ready(function() {
 
     
 
@@ -172,6 +247,40 @@ $( document ).ready(function() {
     if(valor_carrinho == 0) {
         window.location.href = '../login/minhaconta';
     }
+    
+    paypal.Buttons({
+    createOrder: function(data, actions) {
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            currency_code: "BRL",
+            value: valor_carrinho
+          }
+        }]
+      });
+    },
+    onApprove: function(data, actions) {
+      // Capture the funds from the transaction
+      return actions.order.capture().then(function(details) {
+        // Show a success message to your buyer
+        alert('Parabens! O seu pagamento foi processado com sucesso pelo: ' + details.payer.name.given_name);
+        carrinho.tipoPagamento = 3;
+        var token = $("meta[name='_csrf']").attr("content");
+    
+    $.ajax({
+        type: "POST",
+        headers: {"X-CSRF-TOKEN": token},
+        url: "/produto/checkout",
+        contentType: 'application/json',
+        data: JSON.stringify(carrinho),
+       success: function(data) {
+           localStorage.clear();
+           window.location.href = '../login';
+       }
+    });
+      });
+    }
+  }).render('#paypal-button-container');
 
 });
 
@@ -182,6 +291,7 @@ $(".finalizarcompra").on("click", function (e) {
         alert("Selecione a forma de pagamento para continuar!");
         return;
     }
+
 
     var token = $("meta[name='_csrf']").attr("content");
     
@@ -218,5 +328,19 @@ $("#adicionaendereco").on("click", function (e) {
     $("#infoentrega").hide();
 });
 
+    $("#postcode").on("change", function(){
+     var cep = $("#postcode").val().replace("-","");     
+     var url = "https://viacep.com.br/ws/" + cep + "/json/";
+     
+    $.get( url, function( data ) {
+        $("#street_address").val(data.logradouro);
+        $("#district").val(data.bairro);
+        $("#city").val(data.localidade);
+        $("#state").val(data.uf);
+        $("#complemento").val(data.complemento);
+    });
+     
+    });
+    
 
 </script>
