@@ -7,9 +7,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import sp.senac.br.pet.model.Categoria;
 import sp.senac.br.pet.model.Produto;
@@ -18,10 +16,15 @@ import sp.senac.br.pet.repository.ProdutoRepository;
 
 import java.util.List;
 import java.util.Set;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import javax.validation.Valid;
+import org.springframework.security.core.Authentication;
+import org.springframework.validation.BindingResult;
+
 import sp.senac.br.pet.model.Carrinho;
+import sp.senac.br.pet.model.Endereco;
 import sp.senac.br.pet.model.Pedido;
+import sp.senac.br.pet.model.Usuario;
+import sp.senac.br.pet.repository.EnderecoRepository;
 import sp.senac.br.pet.repository.PedidoRepository;
 
 @RestController
@@ -36,6 +39,9 @@ public class ProdutoController {
     
     @Autowired
     private PedidoRepository pedidoRepository;
+    
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
 
     @GetMapping()
@@ -54,7 +60,7 @@ public class ProdutoController {
     
     @GetMapping("/checkout")
     public ModelAndView checkout(){
-        ModelAndView mv = new ModelAndView("checkout");
+        ModelAndView mv = new ModelAndView("checkout").addObject("endereco", new Endereco());
         return mv;
     }
     
@@ -87,5 +93,35 @@ public class ProdutoController {
         
     }
 
+    @GetMapping("/detalhe/{id}")
+    public ModelAndView detalhe(@PathVariable int id){
+        ModelAndView mv = new ModelAndView("detalheProduto");
+
+        Produto p = produtoRepository.getOne(id);
+
+        mv.addObject("produto", p);
+
+        return mv;
+    }
+    
+    @PostMapping("/endereco")
+    public ModelAndView endereco(
+            @ModelAttribute("endereco") @Valid Endereco e,
+            BindingResult bindingResult, Authentication authentication){
+
+        if(bindingResult.hasErrors()){
+            return new ModelAndView("alterarEndereco");
+        }
+        else if(authentication != null){
+            Usuario u = (Usuario) authentication.getPrincipal();
+            e.setUsuario(u);
+
+            enderecoRepository.save(e);
+
+            return new ModelAndView("redirect:/checkout");
+        }
+
+        return new ModelAndView("redirect:/login");
+    }
 
 }

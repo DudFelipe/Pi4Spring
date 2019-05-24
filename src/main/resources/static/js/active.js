@@ -58,20 +58,20 @@
     cartbtn1.on('click', function () {
         $('.cart-list').empty();
         var valor_carrinho = 0;
-        if (typeof carrinho !== 'undefined') {        
+        if (typeof carrinho !== 'undefined') {
             for (var i = 0; i < carrinho["produtos"].length; i++) {
                 valor_carrinho += parseInt(carrinho["produtos"][i].preco.replace("R$", "")*carrinho["produtos"][i].quantidade);
-                    $('.cart-list').append('<div class="single-cart-item">' +
-                        '<a href="#" class="product-image">' +
-                            '<img src="' + carrinho["produtos"][i].imagem + '" class="cart-thumb" alt="">' +
-                            '<div class="cart-item-desc">' +
-                              '<span class="product-remove"><i class="fa fa-close deletacarrinho" aria-hidden="true"></i></span>' +
-                                '<span class="badge">' + carrinho["produtos"][i].marca + '</span> <!-- marca do produto -->' +
-                                '<h6>' + carrinho["produtos"][i].nome + '</h6> <!-- nome do produto -->' +
-                                '<p class="size">Quantidade: ' + carrinho["produtos"][i].quantidade + '</p> <!-- quantidade que ele quer comprar -->' +
-                                '<p class="price">R$' + carrinho["produtos"][i].preco.replace("R$", "") * carrinho["produtos"][i].quantidade + '</p> <!-- valor por unidade -->' +
-                            '</div> ' +
-                        '</a>' +
+                $('.cart-list').append('<div class="single-cart-item">' +
+                    '<a href="#" class="product-image"><span style="display: none" class="id-produto-cart">' + carrinho["produtos"][i].id + '</span>' +
+                    '<img src="' + carrinho["produtos"][i].imagem + '" class="cart-thumb" alt="">' +
+                    '<div class="cart-item-desc">' +
+                    '<span class="product-remove removeprodutobtn"><i class="fa fa-close deletacarrinho" aria-hidden="true"></i></span>' +
+                    '<span class="badge">' + carrinho["produtos"][i].marca + '</span> <!-- marca do produto -->' +
+                    '<h6 class="nome-prod-carrinho">' + carrinho["produtos"][i].nome + '</h6> <!-- nome do produto -->' +
+                    '<p class="size">Quantidade: ' + carrinho["produtos"][i].quantidade + '</p> <!-- quantidade que ele quer comprar -->' +
+                    '<p class="price">R$' + carrinho["produtos"][i].preco.replace("R$", "") * carrinho["produtos"][i].quantidade + '</p> <!-- valor por unidade -->' +
+                    '</div> ' +
+                    '</a>' +
                     '</div>');
             }
         }
@@ -146,7 +146,7 @@
                         $(this).hide();
                     }
 
-                    
+
                 });
                 $("#produtos-encontrados").html(encontrou);
 

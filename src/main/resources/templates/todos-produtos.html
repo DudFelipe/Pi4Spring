@@ -93,7 +93,7 @@
                             <div class="col-12 col-sm-6 col-lg-4" th:each="produto : ${produtos}">
                                 <div class="single-product-wrapper">
                                     <div class="product-img">
-                                        <img th:src="@{/images/{id}.jpg(id=${produto.idProduto})}"alt="">
+                                        <a th:href="@{/produto/detalhe/{id}(id=${produto.idProduto})}"><img th:src="@{/images/{id}.jpg(id=${produto.idProduto})}"alt=""></a>
                                     </div>
 
                                     
