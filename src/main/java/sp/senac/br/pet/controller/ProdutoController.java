@@ -7,9 +7,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import sp.senac.br.pet.model.Categoria;
 import sp.senac.br.pet.model.Produto;
@@ -18,8 +16,7 @@ import sp.senac.br.pet.repository.ProdutoRepository;
 
 import java.util.List;
 import java.util.Set;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import sp.senac.br.pet.model.Carrinho;
 import sp.senac.br.pet.model.Pedido;
 import sp.senac.br.pet.repository.PedidoRepository;
@@ -87,5 +84,15 @@ public class ProdutoController {
         
     }
 
+    @GetMapping("/detalhe/{id}")
+    public ModelAndView detalhe(@PathVariable int id){
+        ModelAndView mv = new ModelAndView("detalheProduto");
+
+        Produto p = produtoRepository.getOne(id);
+
+        mv.addObject("produto", p);
+
+        return mv;
+    }
 
 }
