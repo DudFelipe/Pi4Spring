@@ -39,7 +39,7 @@ public class UsuarioController {
 
             u.setEnderecos(enderecoRepository.buscaEnderecos(u));
 
-            ModelAndView mv = new ModelAndView("minhaconta");
+            ModelAndView mv = new ModelAndView("redirect:/login/minhaconta");
             mv.addObject("usuario", u);
 
             return mv;
@@ -119,11 +119,17 @@ public class UsuarioController {
     }
 
     @GetMapping("/minhaconta")
-    public ModelAndView minhaconta() { //Mostrar o formulário de cadastro
+    public ModelAndView minhaconta(Authentication authentication) { //Mostrar o formulário de cadastro
         List<Pedido> pedidos = pedidoRepository.findAll();
 
-        ModelAndView mv = new ModelAndView("redirect:/login/minhaconta").addObject("pedidos", pedidos);
-        return mv;
+        if(authentication != null) {
+            Usuario u = (Usuario) authentication.getPrincipal();
+            System.out.println("\n" + pedidos.size() + "\n");
+
+            ModelAndView mv = new ModelAndView("minhaconta").addObject("pedidos", pedidos).addObject("usuario", u);
+            return mv;
+        }
+        return new ModelAndView("redirect:/login");
     }
 
     @GetMapping("/endereco")
