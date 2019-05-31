@@ -1,0 +1,35 @@
+package sp.senac.br.pet.controller;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+import sp.senac.br.pet.model.Produto;
+import sp.senac.br.pet.model.Usuario;
+import sp.senac.br.pet.repository.ProdutoRepository;
+
+@RestController
+@RequestMapping("/index")
+public class IndexController {
+    
+    @Autowired
+    private ProdutoRepository produtoRepository;
+    
+    @GetMapping
+    public ModelAndView index(Authentication authentication){
+        Usuario u = null;
+
+        if(authentication != null){
+            u = (Usuario)authentication.getPrincipal();
+        }
+        
+        List<Produto> produtos = produtoRepository.buscaProdutosAtivos();
+
+        ModelAndView mv = new ModelAndView("index").addObject("usuario", u).addObject("produtos", produtos);
+
+        return mv;
+    }
+}

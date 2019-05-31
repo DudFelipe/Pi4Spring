@@ -1,33 +1,72 @@
 package sp.senac.br.pet.model;
 
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import sp.senac.br.pet.SecurityConfig;
+import sp.senac.br.pet.constraint.FieldMatch;
 
 import javax.persistence.*;
-import javax.validation.constraints.PastOrPresent;
-import java.io.Serializable;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "usuario")
-public class Usuario implements Serializable {
+/*@FieldMatch.List({
+    @FieldMatch(
+            first = "hashSenha",
+            second = "csenha",
+            message = "Confirmação de senha não bate!"
+    ),
+    @FieldMatch(
+            first = "email",
+            second = "cemail",
+            message = "Confirmação de email não bate!"
+    )
+})*/
+public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idusuario")
     private int idUsuario;
+
+    @CPF(message = "CPF inválido!")
     private String cpf;
+
+    @NotBlank(message = "Preencha o nome!")
+    @Size(max = 70)
     private String nome;
+
+    @Transient
+    @NotBlank(message = "Preencha o sobrenome!")
+    private String sobrenome;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @PastOrPresent
     private LocalDate nascimento;
 
+    @NotBlank(message = "Preencha o telefone!")
     private String telefone;
+
+    @NotBlank(message = "Preencha o campo email!")
+    @Email(message = "Email inválido!")
     private String email;
+
+    @Transient
+    private String cemail;
+
     private char sexo;
-    private String rg;
-    private String endereco;
-    private String senha;
+
+    @NotBlank(message = "Preencha a senha!")
+    @Column(name = "senha")
+    private String hashSenha;
+
+    @Transient
+    private String csenha;
 
     /**
      * tipoAcesso = 1 -> Acesso de Cliente
@@ -40,6 +79,14 @@ public class Usuario implements Serializable {
      */
     @Column(name = "tipoacesso")
     private int tipoAcesso;
+
+    private int ativo;
+
+    @OneToMany(mappedBy = "usuario")
+    private Set<Endereco> enderecos;
+
+    public Usuario() {
+    }
 
     public int getIdUsuario() {
         return idUsuario;
@@ -63,6 +110,14 @@ public class Usuario implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
     }
 
     public LocalDate getNascimento() {
@@ -89,6 +144,14 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
+    public String getCemail() {
+        return cemail;
+    }
+
+    public void setCemail(String cemail) {
+        this.cemail = cemail;
+    }
+
     public char getSexo() {
         return sexo;
     }
@@ -97,28 +160,27 @@ public class Usuario implements Serializable {
         this.sexo = sexo;
     }
 
-    public String getRg() {
-        return rg;
-    }
-
-    public void setRg(String rg) {
-        this.rg = rg;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
     public void setSenha(String senha) {
-        this.senha = senha;
+        this.hashSenha =
+                SecurityConfig.bcryptPasswordEncoder()
+                        .encode(senha);
+    }
+
+    public String getHashSenha() {
+        return hashSenha;
+    }
+
+    public void setHashSenha(String hashSenha) {
+        this.hashSenha = hashSenha;
+    }
+
+    public String getCsenha() {
+        return csenha;
+    }
+
+    public void setCsenha(String csenha) {
+        this.csenha = SecurityConfig.bcryptPasswordEncoder()
+                .encode(csenha);
     }
 
     public int getTipoAcesso() {
@@ -127,5 +189,56 @@ public class Usuario implements Serializable {
 
     public void setTipoAcesso(int tipoAcesso) {
         this.tipoAcesso = tipoAcesso;
+    }
+
+    public int getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(int ativo) {
+        this.ativo = ativo;
+    }
+
+    public Set<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(Set<Endereco> enderecos) {
+        this.enderecos = enderecos;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return getHashSenha();
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
