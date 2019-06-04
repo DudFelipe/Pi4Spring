@@ -16,8 +16,19 @@ public class Carrinho {
     private int cliente;
     private int tipoPagamento;
     private float valor;
+    private int idEndereco;
     
     private List<ProdutoCarrinho> produtos;
+
+    public int getIdEndereco() {
+        return idEndereco;
+    }
+
+    public void setIdEndereco(int idEndereco) {
+        this.idEndereco = idEndereco;
+    }
+    
+    
 
     public int getCliente() {
         return cliente;

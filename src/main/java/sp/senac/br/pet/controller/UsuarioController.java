@@ -1,5 +1,6 @@
 package sp.senac.br.pet.controller;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
@@ -24,6 +25,9 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+    
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
     @Autowired
     private EnderecoRepository enderecoRepository;
@@ -35,7 +39,7 @@ public class UsuarioController {
 
             u.setEnderecos(enderecoRepository.buscaEnderecos(u));
 
-            ModelAndView mv = new ModelAndView("minhaconta");
+            ModelAndView mv = new ModelAndView("redirect:/login/minhaconta");
             mv.addObject("usuario", u);
 
             return mv;
@@ -115,11 +119,16 @@ public class UsuarioController {
     }
 
     @GetMapping("/minhaconta")
-    public ModelAndView minhaconta() { //Mostrar o formulário de cadastro
-        List<Pedido> pedidos = pedidoRepository.findAll();
-
-        ModelAndView mv = new ModelAndView("redirect:/login/minhaconta").addObject("pedidos", pedidos);
-        return mv;
+    public ModelAndView minhaconta(Authentication authentication) { //Mostrar o formulário de cadastro
+        
+        if(authentication != null){
+            Usuario u = (Usuario)authentication.getPrincipal();
+            u.setEnderecos(enderecoRepository.buscaEnderecos(u));
+            List<Pedido> pedidos = pedidoRepository.findAll();            
+            ModelAndView mv = new ModelAndView("minhaconta").addObject("pedidos", pedidos).addObject("usuario", u);
+            return mv;
+        }        
+        return new ModelAndView("login");
     }
 
     @GetMapping("/endereco")

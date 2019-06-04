@@ -30,26 +30,35 @@
             <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="card-columns d-flex justify-content-center">
-                        <div class="card" style="width: 18rem;">
-                          <div class="card-body">
-                                <h5 class="card-title">Casa</h5>
-                                <p class="card-text">Avenida Interlagos 1000</p>
-                                <a href="#" class="card-link usarendereco">Usar este endereço</a>
+                        <div class="row">
+                            <div class="col-12 col-md-6" th:each="endereco : ${enderecos}">
+                                <div class="card ml-3" style="width: 18rem;" >
+                                    <div class="card-body">
+                                          <h5 class="card-title" th:text="${endereco.apelido}">Casa</h5>
+                                          <p class="card-text" th:text="${endereco.rua}">Avenida Interlagos 1000</p>
+                                          <a th:href="${endereco.id}" class="card-link usarendereco">Usar este endereço</a>
 
+                                      </div>
+                                </div>                                
                             </div>
-                        </div>
-                        <div class="card ml-3" style="width: 18rem;">
-                          <div class="card-body">
-                                <h5 class="card-title">Adicionar novo</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">
-                                    <center>
-                                        <span class="fas fa-plus fa-w-14 fa-3x"></span>
-                                    </center>
-                                </h6>
-                                <a href="#" class="card-link" id="adicionaendereco">Clique aqui para adicionar</a>
+                            <div class="col-12 col-md-6">
+                                <div class="card ml-3" style="width: 18rem;" >
+                                    <div class="card-body">
+                                          <h5 class="card-title">Adicionar novo endereço</h5>
+                                          <h6 class="card-subtitle mb-2 text-muted">
+                                              <center>
+                                                  <span class="fas fa-plus fa-w-14 fa-3x"></span>
+                                              </center>
+                                          </h6>
+                                          <a href="#" class="card-link usarendereco" id="adicionaendereco">Usar este endereço</a>
 
+                                      </div>
+                                </div>   
                             </div>
+                            
                         </div>
+                        
+                        
                     </div>
                     <div class="checkout_details_area mt-50 clearfix" id="addendereco" style="display: none">
 
@@ -319,8 +328,11 @@ $(".selecionacartao").on("click", function (e) {
 });
 
 $(".usarendereco").on("click", function (e) {
+    e.preventDefault();
     $("#infoentrega").show();
     $("#addendereco").hide();
+    carrinho.idEndereco = parseInt($(this).attr("href"));
+    
 });
 
 $("#adicionaendereco").on("click", function (e) {

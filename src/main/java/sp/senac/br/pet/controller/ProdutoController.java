@@ -59,9 +59,18 @@ public class ProdutoController {
     }
     
     @GetMapping("/checkout")
-    public ModelAndView checkout(){
-        ModelAndView mv = new ModelAndView("checkout").addObject("endereco", new Endereco());
-        return mv;
+    public ModelAndView checkout(Authentication authentication){
+        if(authentication != null){
+            Usuario u = (Usuario)authentication.getPrincipal();
+
+            Set<Endereco> enderecos = enderecoRepository.buscaEnderecos(u);
+            ModelAndView mv = new ModelAndView("checkout").addObject("endereco", new Endereco()).addObject("enderecos", enderecos);
+
+            return mv;
+        }
+        
+        
+        return new ModelAndView("redirect:/login");
     }
     
     @PostMapping("/checkout")
@@ -81,6 +90,7 @@ public class ProdutoController {
         Pedido novo_pedido = new Pedido();
         
         
+        novo_pedido.setIdEndereco(carrinhoJSON.getIdEndereco());
         novo_pedido.setIdCliente(carrinhoJSON.getCliente());
         novo_pedido.setData(LocalDateTime.now());
         novo_pedido.setIdTipoPagamento(carrinhoJSON.getTipoPagamento());
