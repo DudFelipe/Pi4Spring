@@ -120,16 +120,28 @@ public class UsuarioController {
 
     @GetMapping("/minhaconta")
     public ModelAndView minhaconta(Authentication authentication) { //Mostrar o formulário de cadastro
-        List<Pedido> pedidos = pedidoRepository.findAll();
-
-        if(authentication != null) {
-            Usuario u = (Usuario) authentication.getPrincipal();
-            System.out.println("\n" + pedidos.size() + "\n");
-
+        
+        if(authentication != null){
+            Usuario u = (Usuario)authentication.getPrincipal();
+            u.setEnderecos(enderecoRepository.buscaEnderecos(u));
+            List<Pedido> pedidos = pedidoRepository.findAll();            
             ModelAndView mv = new ModelAndView("minhaconta").addObject("pedidos", pedidos).addObject("usuario", u);
             return mv;
-        }
-        return new ModelAndView("redirect:/login");
+        }        
+        return new ModelAndView("login");
+    }
+    
+    @GetMapping("/detalhespedido/{id}")
+    public ModelAndView pedidos(@PathVariable int id, Authentication authentication) { //Mostrar o formulário de cadastro
+        System.out.println("eWOKEWQIEWEWq");
+        if(authentication != null){
+            Usuario u = (Usuario)authentication.getPrincipal();
+            u.setEnderecos(enderecoRepository.buscaEnderecos(u));
+            Pedido pedido = pedidoRepository.getOne(id);
+            ModelAndView mv = new ModelAndView("detalhepedido").addObject("pedido", pedido).addObject("usuario", u);
+            return mv;
+        }        
+        return new ModelAndView("login");
     }
 
     @GetMapping("/endereco")

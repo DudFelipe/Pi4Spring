@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html layout:decorate="~{template.html}">
+
+<body>
+    <div layout:fragment="conteudo">
+     <div class="breadcumb_area bg-img" style="background-image: url(static/images/bg-img/breadcumb.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="page-title text-center">
+                        <h2>DETALHES DO SEU PEDIDO</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="single-blog-wrapper">
+
+
+
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8">
+                    <div class="regular-page-content-wrapper section-padding-80">
+                        <div class="regular-page-text">
+                            
+                            <div class="row">
+                                <div class="col-lg-3 col-md-12">
+                                    <div class="mb-2">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12" style="padding: 5%; background: #a7a7a700; box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19); border-radius: 15px;">
+                                    <h5 class="card-title" th:text="'Pedido #' + ${pedido.idPedido}">Pedido #1234</h5>
+                                    <ul class="order-details-form mb-4">
+                                          <h6>Itens:</h6>
+                                          <li th:each="produto : ${pedido.produtos}">
+                                              <span th:text="${produto.nome}">Ração super premium</span> 
+                                              <span th:text="'R$' + ${produto.preco}">R$59.90</span>
+                                          </li>
+                                          
+                                          <br>
+                                          
+                                          <li><span>Frete</span> <span>Grátis</span></li>
+                                          <li><span>Total</span> <span th:text="'R$' + ${pedido.precoVenda}">R$59.90</span></li>
+                                      </ul>
+                                    
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+</html>

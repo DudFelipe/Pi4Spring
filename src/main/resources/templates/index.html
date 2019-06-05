@@ -77,17 +77,17 @@
             <div class="row">
                 <div class="col-12">
                     <div class="popular-products-slides owl-carousel">
-                        <div class="single-product-wrapper">
+                        <div class="single-product-wrapper" th:each="produto : ${produtos}">
                             <div class="product-img">
-                                <img th:src="@{/images/product-img/snack.webp}" alt=""> <!-- img do produto -->
-                                <img class="hover-img" th:src="@{/images/product-img/snack.webp}" alt=""> <!-- img em hover -->
+                                <img th:src="@{/images/{id}.jpg(id=${produto.idProduto})}"alt=""> <!-- img do produto -->
+                                <img class="hover-img" th:src="@{/images/{id}.jpg(id=${produto.idProduto})}"alt=""><!-- img em hover -->
                             </div>
                             <div class="product-description">
-                                <span>Pet Tades</span> <!-- empresa do produto -->
+                                <span th:text="${produto.fabricante}">Pet Tades</span> <!-- empresa do produto -->
                                 <a href="produto-interno.html">
-                                    <h6>Snack Proteico</h6> <!-- nome do produto -->
+                                    <h6 th:text="${produto.nome}">Snack Proteico</h6> <!-- nome do produto -->
                                 </a>
-                                <p class="product-price">R$20.00</p> <!-- preço -->
+                                <p class="product-price" th:text="'R$' + ${produto.preco}">R$20.00</p> <!-- preço -->
 
                                 <div class="hover-content">
                                     <div class="add-to-cart-btn">
@@ -97,67 +97,8 @@
                             </div>
                         </div>
 
-                        <div class="single-product-wrapper">
-                            <div class="product-img">
-                                <img th:src="@{/images/product-img/brinquedo.webp}" alt="">
-                                <img class="hover-img" th:src="@{/images/product-img/brinquedo.webp}" alt="">
-                            </div>
-                            <div class="product-description">
-                                <span>Pet Tades</span>
-                                <a href="produto-interno.html">
-                                    <h6>Brinquedo Macaco Maluco</h6>
-                                </a>
-                                <p class="product-price">R$40.00</p>
-
-                                <div class="hover-content">
-                                    <div class="add-to-cart-btn">
-                                        <a href="/produto" class="btn essence-btn">VER MAIS</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="single-product-wrapper">
-                            <div class="product-img">
-                                <img th:src="@{/images/product-img/racao.webp}" alt="">
-                                <img class="hover-img" th:src="@{/images/product-img/racao.webp}" alt="">
-
-                            </div>
-                            <div class="product-description">
-                                <span>Pet Tades</span>
-                                <a href="produto-interno.html">
-                                    <h6>Ração Super Premium</h6>
-                                </a>
-                                <p class="product-price"><span class="old-price">R$75.00</span> R$55.00</p>
-
-                                <div class="hover-content">
-                                    <div class="add-to-cart-btn">
-                                        <a href="/produto" class="btn essence-btn">VER MAIS</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="single-product-wrapper">
-                            <div class="product-img">
-                                <img th:src="@{/images/product-img/tapete.webp}" alt="">
-                                <img class="hover-img" th:src="@{/images/product-img/tapete.webp}" alt="">
-
-                            </div>
-                            <div class="product-description">
-                                <span>Pet Tades</span>
-                                <a href="produto-interno.html">
-                                    <h6>Tapete Higiênico</h6>
-                                </a>
-                                <p class="product-price">R$35.00</p>
-
-                                <div class="hover-content">
-                                    <div class="add-to-cart-btn">
-                                        <a href="/produto" class="btn essence-btn">VER MAIS</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
+   
                     </div>
                 </div>
             </div>

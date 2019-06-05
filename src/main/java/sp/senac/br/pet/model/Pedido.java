@@ -36,8 +36,8 @@ public class Pedido implements Serializable {
     
     int idCliente; 
     
-    int idTipoPagamento;
-
+    int idTipoPagamento;    
+    
     int idEndereco;
     
     LocalDateTime data;    
@@ -56,6 +56,15 @@ public class Pedido implements Serializable {
         
     }
 
+    public int getIdEndereco() {
+        return idEndereco;
+    }
+
+    public void setIdEndereco(int idEndereco) {
+        this.idEndereco = idEndereco;
+    }
+    
+    
     public int getIdPedido() {
         return idPedido;
     }
@@ -88,13 +97,8 @@ public class Pedido implements Serializable {
         this.data = data;
     }
 
-    public int getIdEndereco() {
-        return idEndereco;
-    }
 
-    public void setIdEndereco(int idEndereco) {
-        this.idEndereco = idEndereco;
-    }
+
 
     public BigDecimal getPrecoVenda() {
         return precoVenda;

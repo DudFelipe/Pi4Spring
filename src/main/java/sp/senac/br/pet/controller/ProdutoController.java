@@ -60,48 +60,46 @@ public class ProdutoController {
     
     @GetMapping("/checkout")
     public ModelAndView checkout(Authentication authentication){
-        if(authentication != null) {
-            Usuario u = (Usuario) authentication.getPrincipal();
+        if(authentication != null){
+            Usuario u = (Usuario)authentication.getPrincipal();
 
             Set<Endereco> enderecos = enderecoRepository.buscaEnderecos(u);
+            ModelAndView mv = new ModelAndView("checkout").addObject("endereco", new Endereco()).addObject("enderecos", enderecos);
 
-            ModelAndView mv = new ModelAndView("checkout").addObject("enderecos", enderecos).addObject("endereco", new Endereco());
             return mv;
         }
-
-        ModelAndView mv = new ModelAndView("redirect:/login");
-        return mv;
+        
+        
+        return new ModelAndView("redirect:/login");
     }
     
     @PostMapping("/checkout")
-    public String finalizaCompra(@RequestBody Carrinho carrinhoJSON, Authentication authentication){
+    public String finalizaCompra(@RequestBody Carrinho carrinhoJSON){
         List<Produto> produtos = new ArrayList<>();
-
-        if(authentication != null) {
-            Usuario u = (Usuario) authentication.getPrincipal();
-
-            for (int i = 0; i < carrinhoJSON.getProdutos().size(); i++) {
-                Produto p = produtoRepository.getOne(carrinhoJSON.getProdutos().get(i).getId());
-                for (int k = 0; k < carrinhoJSON.getProdutos().get(i).getQuantidade(); k++) {
-                    produtos.add(p);
-                }
-
+        
+        for(int i = 0; i < carrinhoJSON.getProdutos().size() ; i++)
+        {
+            Produto p = produtoRepository.getOne(carrinhoJSON.getProdutos().get(i).getId());
+            for(int k = 0; k < carrinhoJSON.getProdutos().get(i).getQuantidade(); k++)
+            {
+                produtos.add(p);
             }
-
-            Pedido novo_pedido = new Pedido();
-
-            novo_pedido.setIdEndereco(carrinhoJSON.getIdEndereco());
-            novo_pedido.setIdCliente(u.getIdUsuario());
-            novo_pedido.setData(LocalDateTime.now());
-            novo_pedido.setIdTipoPagamento(carrinhoJSON.getTipoPagamento());
-            novo_pedido.setPrecoVenda(BigDecimal.valueOf(carrinhoJSON.getValor()));
-            novo_pedido.setProdutos(produtos);
-
-            pedidoRepository.save(novo_pedido);
-
-            return "ok";
+            
         }
-        return null;
+        
+        Pedido novo_pedido = new Pedido();
+        
+        
+        novo_pedido.setIdEndereco(carrinhoJSON.getIdEndereco());
+        novo_pedido.setIdCliente(carrinhoJSON.getCliente());
+        novo_pedido.setData(LocalDateTime.now());
+        novo_pedido.setIdTipoPagamento(carrinhoJSON.getTipoPagamento());
+        novo_pedido.setPrecoVenda(BigDecimal.valueOf(carrinhoJSON.getValor()));
+        novo_pedido.setProdutos(produtos);
+        
+        pedidoRepository.save(novo_pedido);
+        
+        return "ok";
         
     }
 
@@ -130,7 +128,7 @@ public class ProdutoController {
 
             enderecoRepository.save(e);
 
-            return new ModelAndView("redirect:/produto/checkout");
+            return new ModelAndView("redirect:/checkout");
         }
 
         return new ModelAndView("redirect:/login");
