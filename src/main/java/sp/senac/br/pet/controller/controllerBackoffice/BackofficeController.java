@@ -67,8 +67,7 @@ public class BackofficeController {
             BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
-            List<Usuario> usuarios = usuarioRepository.buscaUsuariosAtivos();
-            return new ModelAndView("usuariosBackoffice").addObject("usuarios", usuarios);
+            return new ModelAndView("usuariosBackofficeCadastro");
         }
         else{
             ModelAndView mv = new ModelAndView("redirect:/admin");
@@ -114,7 +113,6 @@ public class BackofficeController {
         u.setSobrenome(u.getNome().substring(espaco+1));
         u.setNome(u.getNome().substring(0, espaco));
 
-
         mv.addObject("usuarios", usuarios);
         mv.addObject("usuario", u);
         return mv;
@@ -141,6 +139,8 @@ public class BackofficeController {
             user.setSexo(u.getSexo());
             user.setTelefone(u.getTelefone());
             user.setTipoAcesso(u.getTipoAcesso());
+
+            user.setNome(u.getNome() + " " + u.getSobrenome());
 
             usuarioRepository.save(user);
 

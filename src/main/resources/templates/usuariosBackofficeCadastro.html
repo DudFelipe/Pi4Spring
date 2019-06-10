@@ -34,7 +34,7 @@
             <div class="container-fluid">
                 <div class="header-mobile-inner">
                     <a class="logo" href="index.html">
-                        <img th:src="@{/images/icon/logo.png}" alt="CoolAdmin"/>
+                        <img th:src="@{/images/icon/logo.png}" alt="CoolAdmin" />
                     </a>
                     <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -49,7 +49,7 @@
                 <ul class="navbar-mobile__list list-unstyled">
                     <ul class="list-unstyled navbar__list">
                         <li class="has-sub">
-                            <a class="js-arrow" href="#">
+                            <a class="js-arrow" th:href="@{/admin/listagemProdutosBackOffice}">
                                 <i class="fas  fa-list-alt"></i>Produtos</a>
                         </li>
                         <li class="has-sub">
@@ -59,10 +59,6 @@
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas  fa-bar-chart-o"></i>Relatorios</a>
-                        </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas  fa-power-off"></i>Sair</a>
                         </li>
                     </ul>
                 </ul>
@@ -75,19 +71,25 @@
     <aside class="menu-sidebar d-none d-lg-block">
         <div class="logo">
             <a th:href="@{/admin}">
-                <img th:src="@{/images/icon/logo.png}" alt="Cool Admin"/>
+                <img th:src="@{/images/icon/logo.png}" alt="Cool Admin" />
             </a>
         </div>
         <div class="menu-sidebar__content js-scrollbar1">
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
                     <li class="has-sub">
-                        <a class="js-arrow" th:href="@{/admin/adicionar}">
+                        <a class="js-arrow" th:href="@{/admin/listagemProdutosBackOffice}">
                             <i class="fas  fa-list-alt"></i>Produtos</a>
                     </li>
                     <li class="has-sub">
                         <a class="js-arrow" th:href="@{/admin/usuariosBackoffice/lista}">
                             <i class="fas fa-user"></i>Gestão de usuarios</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin/listagemPedidoBackOffice}">
+                            <i class="glyphicon glyphicon-heart"></i>
+                            Pedidos
+                        </a>
                     </li>
                     <li class="has-sub">
                         <a class="js-arrow" href="#">
