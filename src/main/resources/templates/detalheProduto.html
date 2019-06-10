@@ -16,6 +16,7 @@
             <span th:text="${produto.fabricante}">Pet Tades</span>
             <a href="cart.html">
                 <h2 class="nome-produto" th:text="${produto.nome}"></h2>
+                <span th:if="${produto.estoque <= 0}"> Indisponível</span>
             </a>
             <p class="product-price" th:text="'R$' + ${produto.preco}"></p>
             <p class="product-desc" th:text="${produto.descricao}"></p>
@@ -25,7 +26,7 @@
             <span class="id-produto" style="display: none" th:text="${produto.idProduto}"></span>
 
                 <div class="cart-fav-box d-flex align-items-center">
-                    <button type="button" name="addtocart" value="5" class="btn essence-btn adicionarproduto" style="border-radius: 5px;">
+                    <button type="button" name="addtocart" value="5" class="btn essence-btn" th:classappend="${produto.estoque > 0} ? adicionarproduto : semestoque" th:text="${produto.estoque > 0} ? 'Adicionar' : 'Avise-me'" style="border-radius: 5px;">
                         Adicionar ao carrinho
                     </button>
                 </div>

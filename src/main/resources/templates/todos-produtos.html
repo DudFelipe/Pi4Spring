@@ -82,7 +82,7 @@
                                 <div class="product-topbar d-flex align-items-center justify-content-between">
                                     <!-- Total Products -->
                                     <div class="total-products">
-                                        <p><span id="produtos-encontrados">5</span> produtos encontrados</p>
+                                        <p><span id="produtos-encontrados">2</span> produtos encontrados</p>
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +93,10 @@
                             <div class="col-12 col-sm-6 col-lg-4" th:each="produto : ${produtos}">
                                 <div class="single-product-wrapper">
                                     <div class="product-img">
-                                        <a th:href="@{/produto/detalhe/{id}(id=${produto.idProduto})}"><img th:src="@{/images/{id}.jpg(id=${produto.idProduto})}"alt=""></a>
+                                        <a th:href="@{/produto/detalhe/{id}(id=${produto.idProduto})}"><img th:src="@{/images/{id}.jpg(id=${produto.idProduto})}"alt="" th:style="${produto.estoque <= 0} ? 'filter: grayscale(1)' : ''"></a>
+                                        <div class="product-badge offer-badge" th:if="${produto.desconto > 0}">
+                                            <span th:text="'-' + ${produto.desconto} + '%' "></span>
+                                        </div>
                                     </div>
 
                                     
@@ -103,70 +106,25 @@
                                         <span class="id-produto" style="display: none" th:text="${produto.idProduto}"></span>
 
                                         <a href="single-product-details.html">
-                                            <h6 class="nome-produto" th:text="${produto.nome}"></h6>
+                                                <h6 th:text="${produto.nome}" class="nome-produto"></h6>
+                                                <span th:if="${produto.estoque == 0}"> Indisponível</span>
+           
                                         </a>
-                                            <p class="product-price" th:text="'R$' + ${produto.preco}" ></p>
+                                        <p class="product-price">
+                                            <span class="old-price" th:if="${produto.desconto > 0}" th:text="'R$' + ${produto.preco} "></span> 
+                                            <font class="preco-prod" th:if="${produto.desconto > 0}" th:text="'R$' + ${produto.precoDesconto} "></font> 
+                                            <font class="preco-prod" th:if="${produto.desconto == 0}" th:text="'R$' + ${produto.preco} "></font> 
+                                        </p>
 
                                         <div class="hover-content">
                                             <div class="add-to-cart-btn">
-                                                <a href="#" class="btn essence-btn adicionarproduto">Adicionar</a>
+                                                <a href="#" class="btn essence-btn" th:classappend="${produto.estoque > 0} ? adicionarproduto : semestoque" th:text="${produto.estoque > 0} ? 'Adicionar' : 'Avise-me'">Adicionar</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             
-                            
-
-<!--                            <div class="col-12 col-sm-6 col-lg-4">-->
-<!--                                <div class="single-product-wrapper">-->
-<!--                                    <div class="product-img">-->
-<!--                                        <img src="img/racao.jpg" alt="">-->
-<!--                                    </div>-->
-
-
-<!--                                    <div class="product-description">-->
-<!--                                        <span class="marca-produto">Marca 2</span>-->
-<!--                                        <span class="categoria-produto">Brinquedos</span>-->
-
-<!--                                        <a href="single-product-details.html">-->
-<!--                                            <h6 class="nome-produto">Macaco Maluco</h6>-->
-<!--                                        </a>-->
-<!--                                        <p class="product-price">R$20.00</p>-->
-
-<!--                                        <div class="hover-content">-->
-<!--                                            <div class="add-to-cart-btn">-->
-<!--                                                <a href="#" class="btn essence-btn adicionarproduto">Adicionar</a>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-
-<!--                            <div class="col-12 col-sm-6 col-lg-4">-->
-<!--                                <div class="single-product-wrapper">-->
-<!--                                    <div class="product-img">-->
-<!--                                        <img src="img/racao.jpg" alt="">-->
-<!--                                    </div>-->
-
-
-<!--                                    <div class="product-description">-->
-<!--                                        <span class="marca-produto">Marca 1</span>-->
-<!--                                        <span class="categoria-produto">Acessórios</span>-->
-
-<!--                                        <a href="single-product-details.html">-->
-<!--                                            <h6 class="nome-produto">Lenço</h6>-->
-<!--                                        </a>-->
-<!--                                        <p class="product-price">R$15.00</p>-->
-
-<!--                                        <div class="hover-content">-->
-<!--                                            <div class="add-to-cart-btn">-->
-<!--                                                <a href="#" class="btn essence-btn adicionarproduto">Adicionar</a>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -184,7 +142,7 @@
             var marca = $(this).closest(".product-description").find(".marca-produto").html();
             var imagem = $(this).closest(".single-product-wrapper").find("img").attr("src");
             var nome = $(this).closest(".product-description").find(".nome-produto").html();
-            var preco = $(this).closest(".product-description").find(".product-price").html();
+            var preco = $(this).closest(".product-description").find(".preco-prod").html();
             var id = $(this).closest(".product-description").find(".id-produto").html();
             
             var novoProduto = true;

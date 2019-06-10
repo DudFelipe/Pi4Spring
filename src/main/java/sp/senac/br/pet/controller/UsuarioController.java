@@ -1,6 +1,8 @@
 package sp.senac.br.pet.controller;
 
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
@@ -124,7 +126,7 @@ public class UsuarioController {
         if(authentication != null){
             Usuario u = (Usuario)authentication.getPrincipal();
             u.setEnderecos(enderecoRepository.buscaEnderecos(u));
-            List<Pedido> pedidos = pedidoRepository.findAll();            
+            Set<Pedido> pedidos = pedidoRepository.buscaPedidosUsuario(u);
             ModelAndView mv = new ModelAndView("minhaconta").addObject("pedidos", pedidos).addObject("usuario", u);
             return mv;
         }        

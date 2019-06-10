@@ -21,7 +21,7 @@
                 <div class="col-4" style="text-align: center;">
                     <div class="hero-content">
                         <h2>Tudo para o seu PET!</h2>
-                        <a href="#" class="btn essence-btn" style="border-radius: 5px;">Ver novidades</a>
+                        <a th:href="@{/produto}" class="btn essence-btn" style="border-radius: 5px;">Ver novidades</a>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                 <div class="col-12 col-md-4">
                     <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(/images/alimentos.jpeg);">
                         <div class="catagory-content">
-                            <a href="#">ALIMENTOS</a>
+                            <a th:href="@{/produto}">Todos os Produtos</a>
                         </div>
                     </div>
                 </div>
@@ -44,15 +44,7 @@
                 <div class="col-12 col-md-4">
                     <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(/images/brinquedos.jpg);">
                         <div class="catagory-content">
-                            <a href="#">BRINQUEDOS</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Catagory -->
-                <div class="col-12 col-md-4">
-                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(/images/acessorios.jpg);">
-                        <div class="catagory-content">
-                            <a href="#">ACESSÓRIOS</a>
+                            <a href="#">Sobre nós</a>
                         </div>
                     </div>
                 </div>
@@ -84,7 +76,7 @@
                             </div>
                             <div class="product-description">
                                 <span th:text="${produto.fabricante}">Pet Tades</span> <!-- empresa do produto -->
-                                <a href="produto-interno.html">
+                                <a th:href="@{/produto/detalhe/{id}(id=${produto.idProduto})}">
                                     <h6 th:text="${produto.nome}">Snack Proteico</h6> <!-- nome do produto -->
                                 </a>
                                 <p class="product-price" th:text="'R$' + ${produto.preco}">R$20.00</p> <!-- preço -->

@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sp.senac.br.pet.model.Categoria;
+import sp.senac.br.pet.model.Pedido;
 import sp.senac.br.pet.model.Produto;
 import sp.senac.br.pet.model.Usuario;
 import sp.senac.br.pet.repository.CategoriaRepository;
+import sp.senac.br.pet.repository.PedidoRepository;
 import sp.senac.br.pet.repository.ProdutoRepository;
 import sp.senac.br.pet.repository.UsuarioRepository;
 
@@ -31,6 +33,9 @@ public class BackofficeController {
 
     @Autowired
     private CategoriaRepository categoriaRepository;
+
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
     @GetMapping
     public ModelAndView index(){
@@ -61,6 +66,9 @@ public class BackofficeController {
         else{
             ModelAndView mv = new ModelAndView("redirect:/admin");
 
+            u.setSenha(u.getHashSenha());
+            u.setAtivo(1);
+
             usuarioRepository.save(u);
             return mv;
         }
@@ -88,6 +96,12 @@ public class BackofficeController {
 
         Usuario u = usuarioRepository.getOne(id);
 
+        int espaco = u.getNome().indexOf(" ");
+
+        u.setSobrenome(u.getNome().substring(espaco+1));
+        u.setNome(u.getNome().substring(0, espaco));
+
+
         mv.addObject("usuarios", usuarios);
         mv.addObject("usuario", u);
         return mv;
@@ -106,13 +120,14 @@ public class BackofficeController {
 
             Usuario user = usuarioRepository.getOne(id);
             user.setNome(u.getNome());
-            user.setTipoAcesso(u.getTipoAcesso());
+            user.setSobrenome(u.getSobrenome());
+            user.setSenha(u.getHashSenha());
             user.setCpf(u.getCpf());
             user.setEmail(u.getEmail());
             user.setNascimento(u.getNascimento());
-            user.setSenha(u.getHashSenha());
             user.setSexo(u.getSexo());
             user.setTelefone(u.getTelefone());
+            user.setTipoAcesso(u.getTipoAcesso());
 
             usuarioRepository.save(user);
 
@@ -181,6 +196,8 @@ public class BackofficeController {
         prod.setPreco(p.getPreco());
         prod.setEstoque(p.getEstoque());
         prod.setIdCategoria((p.getIdCategoria()));
+        prod.setModelo(p.getModelo());
+        prod.setCodigodebarras(p.getCodigodebarras());
 
         produtoRepository.save(prod);
 
@@ -208,6 +225,30 @@ public class BackofficeController {
 
         mv.addObject("produtos", produtos);
 
+
+        return mv;
+    }
+
+    @GetMapping("/listagemPedidoBackOffice")
+    public ModelAndView listagemPedidoBackOffice(){
+        ModelAndView mv = new ModelAndView("listagemPedidoBackoffice");
+
+        List<Pedido> pedidos = pedidoRepository.findAll();
+        mv.addObject("pedidos", pedidos);
+
+
+        return mv;
+    }
+
+    @GetMapping("/listagemPedidosBackOffice/validar/{id}")
+    public ModelAndView validaPedido(@PathVariable int id){
+        ModelAndView mv = new ModelAndView("redirect:/admin/listagemPedidoBackOffice");
+
+        Pedido p = pedidoRepository.getOne(id);
+
+        p.setStatus(1);
+
+        pedidoRepository.save(p);
 
         return mv;
     }

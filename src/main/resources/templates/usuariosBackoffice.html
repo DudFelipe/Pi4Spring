@@ -72,15 +72,15 @@
                 </div>
 
                 <div class="form-row">
-
                     <div class="form-group col-md-6">
-                        <label for="rg">RG</label>
+                        <label for="nome">Sobrenome</label>
                         <div>
-                            <input type="text" name="rg" class="form-control" th:classappend="${#fields.hasErrors('usuario.rg')}? is-invalid" id="rg"  th:field="${usuario.rg}">
-                            <div class="invalid-feedback" th:if="${#fields.hasErrors('usuario.rg')}" th:errors="${usuario.rg}">
+                            <input type="text" name="sobrenome" class="form-control" th:classappend="${#fields.hasErrors('usuario.sobrenome')}? is-invalid" id="sobrenome" th:field="${usuario.sobrenome}">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('usuario.sobrenome')}" th:errors="${usuario.sobrenome}">
                             </div>
                         </div>
                     </div>
+
 
                     <div class="form-group col-md-6">
                         <label for="tipoacesso">Tipo Acesso</label>
@@ -103,16 +103,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group col-md-6">
-                        <label for="endereco">Endereço</label>
-                        <div>
-                            <input type="text" name="endereco" class="form-control" th:classappend="${#fields.hasErrors('usuario.endereco')}? is-invalid" id="endereco"  th:field="${usuario.endereco}">
-                            <div class="invalid-feedback" th:if="${#fields.hasErrors('usuario.endereco')}" th:errors="${usuario.endereco}">
-                            </div>
-                        </div>
-                    </div>
-
-
 
                 </div>
 
@@ -128,8 +118,8 @@
                     <div class="form-group col-md-6">
                         <label for="senha">Senha</label>
                         <div>
-                            <input type="password" name="senha" class="form-control" th:classappend="${#fields.hasErrors('usuario.senha')}? is-invalid" id="senha"  th:field="${usuario.senha}">
-                            <div class="invalid-feedback" th:if="${#fields.hasErrors('usuario.senha')}" th:errors="${usuario.senha}">
+                            <input type="password" name="senha" class="form-control" th:classappend="${#fields.hasErrors('usuario.hashSenha')}? is-invalid" id="senha"  th:field="${usuario.hashSenha}">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('usuario.hashSenha')}" th:errors="${usuario.hashSenha}">
                             </div>
                         </div>
                     </div>
@@ -158,11 +148,11 @@
                     <th scope="col">Id</th>
                     <th scope="col">Nome</th>
                     <th scope="col">CPF</th>
-                    <th scope="col">RG</th>
+
                     <th scope="col">Data Nascimento</th>
                     <th scope="col">Telefone</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Endereço</th>
+
                     <th scope="col">Editar</th>
                     <th scope="col">Excluir</th>
                 </thead>
@@ -172,11 +162,11 @@
                         <td scope="row" th:text="${usuario.idUsuario}"></td>
                         <td th:text="${usuario.nome}"></td>
                         <td th:text="${usuario.cpf}"></td>
-                        <td th:text="${usuario.rg}"></td>
+
                         <td th:text="${usuario.nascimento}"></td>
                         <td th:text="${usuario.telefone}"></td>
                         <td th:text="${usuario.email}"></td>
-                        <td th:text="${usuario.endereco}"></td>
+
 
                         <td><a th:href="@{/admin/alterarUsuario/{id}(id=${usuario.idUsuario})}">Alterar</a></td>
                         <td><a th:href="@{/admin/excluirUsuario/{id}(id=${usuario.idUsuario})}">Excluir</a></td>

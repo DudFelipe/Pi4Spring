@@ -68,6 +68,9 @@ public class Usuario implements UserDetails {
     @Transient
     private String csenha;
 
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+    private Set<Pedido> pedidos;
+
     /**
      * tipoAcesso = 1 -> Acesso de Cliente
      * tipoAcesso = 2 -> Acesso de Funcionário de filial

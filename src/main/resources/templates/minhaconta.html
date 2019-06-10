@@ -40,17 +40,19 @@
                         <!-- ##### Meus pedidos ##### -->
                         <div class="checkout_details_area mt-50 clearfix" >
                             <h5>Meus pedidos</h5> 
-                            <div class="card col-12 mb-2" style="width: 68rem;" th:each="pedido : ${pedidos}">
+                            <a th:href="@{/login/detalhespedido/{id}(id=${pedido.idPedido})}" th:each="pedido : ${pedidos}">
+                            <div class="card col-12 mb-2" style="width: 68rem;" >
                                 <div class="card-body">
                                   <h5 class="card-title" th:text="'Pedido #' + ${pedido.idPedido}">Pedido #1234</h5>
-                                  <ul class="order-details-form mb-4">
-                                    <li><span th:text="'Data do pedido: ' + ${pedido.data}"></span></li>
-                                    <li><span>Frete</span> <span>Grátis</span></li>
-                                    <li><span>Total</span> <span th:text="'R$' + ${pedido.precoVenda}">R$59.90</span></li>
-                                </ul>
+                                    <ul class="order-details-form mb-4">
+                                        <li><span th:text="'Data do pedido: ' + ${pedido.data}"></span></li>
+                                        <li><span>Frete</span> <span>Grátis</span></li>
+                                        <li><span>Total</span> <span th:text="'R$' + ${pedido.precoVenda}">R$59.90</span></li>
+                                    </ul>
                                 
+                                </div>
                             </div>
-                        </div>
+                            </a>
                         
                     </div>
                     </div>

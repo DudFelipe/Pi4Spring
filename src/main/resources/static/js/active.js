@@ -138,7 +138,7 @@
 
                 encontrou = 0;
                 $('#lista-produtos').children('div').each(function () {
-                    if($(this).find(".product-price").html().replace(unit, "") >= ui.values[0] && $(this).find(".product-price").html().replace(unit, "") <= ui.values[1])
+                    if($(this).find(".preco-prod").html().replace(unit, "") >= ui.values[0] && $(this).find(".preco-prod").html().replace(unit, "") <= ui.values[1])
                     {
                         $(this).show();
                         encontrou++;

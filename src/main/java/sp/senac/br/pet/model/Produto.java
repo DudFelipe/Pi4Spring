@@ -20,6 +20,8 @@ public class Produto implements Serializable {
     private String modelo;
     private String codigodebarras;
     private String descricao;
+    private int desconto;
+    private Double precoDesconto;
 
     private int ativo;
 
@@ -31,6 +33,24 @@ public class Produto implements Serializable {
             name = "idCategoria", nullable = false
     )
     private Categoria idCategoria;
+
+    public int getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(int desconto) {
+        this.desconto = desconto;
+    }
+
+    public Double getPrecoDesconto() {
+        return precoDesconto;
+    }
+
+    public void setPrecoDesconto(Double precoDesconto) {
+        this.precoDesconto = precoDesconto;
+    }
+    
+    
 
     public int getIdProduto() {
         return idProduto;

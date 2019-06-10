@@ -12,15 +12,7 @@ import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
@@ -33,12 +25,18 @@ public class Pedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idPedido;
-    
-    int idCliente; 
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "idcliente", nullable = false
+    )
+    Usuario cliente;
     
     int idTipoPagamento;    
     
     int idEndereco;
+
+    int status;
     
     LocalDateTime data;    
     BigDecimal precoVenda;
@@ -54,6 +52,14 @@ public class Pedido implements Serializable {
     public Pedido()
     {
         
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getIdEndereco() {
@@ -73,12 +79,12 @@ public class Pedido implements Serializable {
         this.idPedido = idPedido;
     }
 
-    public int getIdCliente() {
-        return idCliente;
+    public Usuario getCliente() {
+        return cliente;
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public void setCliente(Usuario cliente) {
+        this.cliente = cliente;
     }
 
     public int getIdTipoPagamento() {

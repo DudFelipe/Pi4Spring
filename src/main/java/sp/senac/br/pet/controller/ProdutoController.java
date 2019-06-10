@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import sp.senac.br.pet.model.Categoria;
 import sp.senac.br.pet.model.Produto;
-import sp.senac.br.pet.repository.CategoriaRepository;
-import sp.senac.br.pet.repository.ProdutoRepository;
+import sp.senac.br.pet.repository.*;
 
 import java.util.List;
 import java.util.Set;
@@ -24,8 +23,6 @@ import sp.senac.br.pet.model.Carrinho;
 import sp.senac.br.pet.model.Endereco;
 import sp.senac.br.pet.model.Pedido;
 import sp.senac.br.pet.model.Usuario;
-import sp.senac.br.pet.repository.EnderecoRepository;
-import sp.senac.br.pet.repository.PedidoRepository;
 
 @RestController
 @RequestMapping("/produto")
@@ -42,6 +39,9 @@ public class ProdutoController {
     
     @Autowired
     private EnderecoRepository enderecoRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
 
     @GetMapping()
@@ -64,7 +64,7 @@ public class ProdutoController {
             Usuario u = (Usuario)authentication.getPrincipal();
 
             Set<Endereco> enderecos = enderecoRepository.buscaEnderecos(u);
-            ModelAndView mv = new ModelAndView("checkout").addObject("endereco", new Endereco()).addObject("enderecos", enderecos);
+            ModelAndView mv = new ModelAndView("checkout").addObject("endereco", new Endereco()).addObject("enderecos", enderecos).addObject("usuario", u);
 
             return mv;
         }
@@ -80,18 +80,25 @@ public class ProdutoController {
         for(int i = 0; i < carrinhoJSON.getProdutos().size() ; i++)
         {
             Produto p = produtoRepository.getOne(carrinhoJSON.getProdutos().get(i).getId());
+            p.setEstoque(p.getEstoque()-1);
+
+            if(p.getEstoque() < 0)
+                p.setEstoque(0);
+
             for(int k = 0; k < carrinhoJSON.getProdutos().get(i).getQuantidade(); k++)
             {
                 produtos.add(p);
             }
+            produtoRepository.save(p);
             
         }
         
         Pedido novo_pedido = new Pedido();
-        
+
+        Usuario u = usuarioRepository.getOne(carrinhoJSON.getCliente());
         
         novo_pedido.setIdEndereco(carrinhoJSON.getIdEndereco());
-        novo_pedido.setIdCliente(carrinhoJSON.getCliente());
+        novo_pedido.setCliente(u);
         novo_pedido.setData(LocalDateTime.now());
         novo_pedido.setIdTipoPagamento(carrinhoJSON.getTipoPagamento());
         novo_pedido.setPrecoVenda(BigDecimal.valueOf(carrinhoJSON.getValor()));
@@ -128,7 +135,7 @@ public class ProdutoController {
 
             enderecoRepository.save(e);
 
-            return new ModelAndView("redirect:/checkout");
+            return new ModelAndView("redirect:/produto/checkout");
         }
 
         return new ModelAndView("redirect:/login");

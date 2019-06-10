@@ -3,7 +3,7 @@
 
 <body>
     <div layout:fragment="conteudo">
-     <div class="breadcumb_area bg-img" style="background-image: url(static/images/bg-img/breadcumb.jpg);">
+     <div class="breadcumb_area bg-img" style="background-image: url(img/bg-img/breadcumb.jpg);">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
@@ -36,7 +36,8 @@
                                           <h6>Itens:</h6>
                                           <li th:each="produto : ${pedido.produtos}">
                                               <span th:text="${produto.nome}">Ração super premium</span> 
-                                              <span th:text="'R$' + ${produto.preco}">R$59.90</span>
+                                              <span th:text="'R$' + ${produto.preco}" th:if="${produto.desconto == 0}">R$59.90</span>
+                                              <span th:text="'R$' + ${produto.precoDesconto}" th:if="${produto.desconto > 0}">R$59.90</span>
                                           </li>
                                           
                                           <br>
