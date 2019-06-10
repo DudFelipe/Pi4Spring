@@ -43,13 +43,20 @@ public class BackofficeController {
         return mv;
     }
 
-    @GetMapping("/usuariosBackoffice")
+    @GetMapping("/usuariosBackoffice/lista")
     public ModelAndView usuariosBackoffice(){
         ModelAndView mv = new ModelAndView("usuariosBackoffice");
 
         List<Usuario> usuarios = usuarioRepository.buscaUsuariosAtivos();
 
         mv.addObject("usuarios", usuarios);
+        return mv;
+    }
+
+    @GetMapping("/usuariosBackoffice")
+    public ModelAndView cadastraUsuarios(){
+        ModelAndView mv = new ModelAndView("usuariosBackofficeCadastro");
+
         mv.addObject("usuario", new Usuario());
         return mv;
     }
@@ -66,6 +73,7 @@ public class BackofficeController {
         else{
             ModelAndView mv = new ModelAndView("redirect:/admin");
 
+            u.setNome(u.getNome() + " " + u.getSobrenome());
             u.setSenha(u.getHashSenha());
             u.setAtivo(1);
 
@@ -83,6 +91,11 @@ public class BackofficeController {
 
         u.setAtivo(0);
 
+        int espaco = u.getNome().indexOf(" ");
+
+        u.setSobrenome(u.getNome().substring(espaco+1));
+        u.setNome(u.getNome().substring(0, espaco));
+
         usuarioRepository.save(u);
 
         return mv;
@@ -90,7 +103,7 @@ public class BackofficeController {
 
     @GetMapping("/alterarUsuario/{id}")
     public ModelAndView alterarUsuario(@PathVariable int id){
-        ModelAndView mv = new ModelAndView("usuariosBackoffice");
+        ModelAndView mv = new ModelAndView("usuariosBackofficeCadastro");
 
         List<Usuario> usuarios = usuarioRepository.buscaUsuariosAtivos();
 
@@ -113,7 +126,7 @@ public class BackofficeController {
 
         if(bindingResult.hasErrors()){
             List<Usuario> usuarios = usuarioRepository.buscaUsuariosAtivos();
-            return new ModelAndView("usuariosBackoffice").addObject("usuarios", usuarios);
+            return new ModelAndView("usuariosBackofficeCadastro").addObject("usuarios", usuarios);
         }
         else{
             ModelAndView mv = new ModelAndView("redirect:/admin");
