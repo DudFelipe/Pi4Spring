@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html layout:decorate="~{back_template.html}">
+    <div layout:fragment="conteudo">
+        <div class="page-container">
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="au-card chart-percent-card">
+                                    <div class="container">
+                                        <h1 style="text-align: center">Gerenciamento de Pedidos</h1>
+                                        
+                                        <div class="alert alert-success" th:if="${#httpServletRequest.getParameter('insert') == 'true'}">
+                                            Pedido validado com sucesso
+                                        </div>
+                                        
+                                        <table class="table">
+                                            <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Nome Cliente</th>
+                                                <th scope="col">Valor venda</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Ações</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>'
+                                            <tr th:each="pedido : ${pedidos}">
+                                                <td th:text="${pedido.idPedido}"></td>
+                                                <td th:text="${pedido.cliente.nome}"></td>
+                                                <td th:text="${pedido.precoVenda}"></td>
+                                                <td th:text="${pedido.status == 0 ? 'Não validado' : 'Validado'}"></td>
+
+                                                <td>
+                                                    <a class="btn btn-success col-md-4" th:href="@{/admin/listagemPedidosBackOffice/validar/{id}(id=${pedido.idPedido})}" th:if="${pedido.status == 0}">Validar</a>
+                                                    
+                                                    <a class="btn btn-primary col-md-4" th:href="@{/admin/listagemPedidosBackOffice/detalhar/{id}(id=${pedido.idPedido})}">Detalhes</a>
+                                                    &nbsp;&nbsp;
+
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</html>

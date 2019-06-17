@@ -19,18 +19,26 @@
         <p style="text-align: center; color: white"></p>
 
         <li>
-            <a href="#">
+            <a th:href="@{/admin/listagemProdutosBackOffice}">
                 <i class="glyphicon glyphicon-heart"></i>
                 Produtos
             </a>
         </li>
 
         <li>
-            <a th:href="@{/admin/usuariosBackoffice}">
-                <i class="glyphicon glyphicon-user"></i>
-                Gestão de Usuários
+            <a th:href="@{/admin/usuariosBackoffice/lista}">
+                <i class="glyphicon glyphicon-heart"></i>
+                Usuários
             </a>
         </li>
+
+        <li>
+            <a th:href="@{/admin/listagemPedidoBackOffice}">
+                <i class="glyphicon glyphicon-heart"></i>
+                Pedidos
+            </a>
+        </li>
+
 
         <li>
             <a href="#">

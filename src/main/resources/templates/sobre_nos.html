@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html layout:decorate="~{template.html}">
+
+<body>
+<div layout:fragment="conteudo">
+
+<!--Opções de minha conta-->
+    <!-- ##### Meus dados ##### -->
+       
+    <div class="contact-area d-flex align-items-center">
+
+        <div class="google-map">
+            <div id="googleMap">
+                <img th:src="@{/images/mapa.png}">
+            </div>
+        </div>
+        
+        <div class="contact-info">   
+            <h2>Sobre nós</h2>
+            <p>Esse site foi feito para fins de estudo e aprendizando, treinando nossos conhecimentos. </p>
+             <p>Grupo Alpha</p>   
+             <p>Eduardo Serra</p>
+             <p>Diogo Carauta</p>
+             <p>Evelyn Carmo</p>
+             <p>Giovane Barreira</p>
+            <div class="contact-address mt-50">
+                <p><span>Endereço:</span>Av. Engenheiro Eusébio Stevaux, 823 - Santo Amaro São Paulo</p>
+                <p><span>Telefone:</span>(011) 5682-7300</p>
+                <p><a href="mailto:universitariosantoamaro@sp.senac">universitariosantoamaro@sp.senac</a></p>
+            </div>
+        </div>
+
+    </div> 
+
+
+
+    
+</div>
+</body>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwuyLRa1uKNtbgx6xAJVmWy-zADgegA2s"></script>
+</html>

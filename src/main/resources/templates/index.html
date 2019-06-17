@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pet Tades - INDEX</title>
+    
+</head>
+
+<body>
+<div layout:fragment="conteudo">
+    <!-- slider principal -->
+    <section class="welcome_area bg-img background-overlay" id="sliderprincipal">
+        <div class="container-fluid h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-8">
+                </div>
+                <div class="col-4" style="text-align: center;">
+                    <div class="hero-content">
+                        <h2>Tudo para o seu PET!</h2>
+                        <a th:href="@{/produto}" class="btn essence-btn" style="border-radius: 5px;">Ver novidades</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- acesso direto para categorias -->
+    <div class="top_catagory_area section-padding-80 clearfix">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- Single Catagory -->
+                <div class="col-12 col-md-4">
+                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(/images/alimentos.jpeg);">
+                        <div class="catagory-content">
+                            <a th:href="@{/produto}">Todos os Produtos</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Single Catagory -->
+                <div class="col-12 col-md-4">
+                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(/images/brinquedos.jpg);">
+                        <div class="catagory-content">
+                            <a th:href="@{/index/sobrenos}">Sobre nós</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- produtos em destaque -->
+    <section class="new_arrivals_area section-padding-80 clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-center">
+                        <h2>Produtos em Destaque</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="popular-products-slides owl-carousel">
+                        <div class="single-product-wrapper" th:each="produto : ${produtos}">
+                            <div class="product-img">
+                                <img th:src="@{/images/{id}.jpg(id=${produto.idProduto})}"alt=""> <!-- img do produto -->
+                                <img class="hover-img" th:src="@{/images/{id}.jpg(id=${produto.idProduto})}"alt=""><!-- img em hover -->
+                            </div>
+                            <div class="product-description">
+                                <span th:text="${produto.fabricante}">Pet Tades</span> <!-- empresa do produto -->
+                                <a th:href="@{/produto/detalhe/{id}(id=${produto.idProduto})}">
+                                    <h6 th:text="${produto.nome}">Snack Proteico</h6> <!-- nome do produto -->
+                                </a>
+                                <p class="product-price" th:text="'R$' + ${produto.preco}">R$20.00</p> <!-- preço -->
+
+                                <div class="hover-content">
+                                    <div class="add-to-cart-btn">
+                                        <a href="/produto" class="btn essence-btn">VER MAIS</a> <!-- Adicionar ao carrinho -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+
+</html>

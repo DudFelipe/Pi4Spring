@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html layout:decorate="~{back_template.html}">
+    <div layout:fragment="conteudo">
+        <div class="page-container">
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                                <div class="col-lg-3 col-md-12">
+                                    <div class="mb-2">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12" style="padding: 5%; background: #a7a7a700; box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19); border-radius: 15px;">
+                                    <h5 class="card-title" th:text="'Pedido #' + ${pedido.idPedido} + ${pedido.status == 0 ? ' - Não validado' : ' - Validado'}">Pedido #1234</h5>
+                                    <ul class="order-details-form mb-4">
+                                        <br>
+                                          <h6>Produtos comprados</h6>
+                                          <li th:each="produto : ${pedido.produtos}">
+                                              <span th:text="${produto.nome}">Ração super premium</span> 
+                                              <span th:text="'R$' + ${produto.preco}" th:if="${produto.desconto == 0}">R$59.90</span>
+                                              <span th:text="'R$' + ${produto.precoDesconto}" th:if="${produto.desconto > 0}">R$59.90</span>
+                                          </li>
+                                          <hr>
+                                          <h6>Informações da compra</h6>
+                                          
+                                          <li><span>Frete</span> <span>Grátis</span></li>
+                                          <li><span>Total</span> <span th:text="'R$' + ${pedido.precoVenda}">R$59.90</span></li>
+                                          <li><span>Forma de pagamento escolhida</span> <span th:text="${pedido.idTipoPagamento == 2 ? 'Boleto Bancário' : 'PayPal'}"></span></li>
+                                      </ul>
+                                    
+                                    <a th:href="@{/admin/listagemPedidoBackOffice}" class="btn essence-btn" style="border-radius: 5px;">Voltar a listagem de pedidos</a>
+                                    
+                                    </div>
+                            </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</html>
