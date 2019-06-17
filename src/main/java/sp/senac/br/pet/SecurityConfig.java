@@ -45,7 +45,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginPage("/login")
                     .usernameParameter("email")
                     .passwordParameter("senha")
-                    .defaultSuccessUrl("/index").permitAll();
+                    .defaultSuccessUrl("/index").permitAll()
+                .and()
+                .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login?logout")
+                    .invalidateHttpSession(true).deleteCookies("JSESSIONID");
         /*
         http.csrf().disable()
                 .authorizeRequests()

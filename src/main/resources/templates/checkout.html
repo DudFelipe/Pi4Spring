@@ -250,6 +250,19 @@
     }
     
     paypal.Buttons({
+    style: {
+        layout: 'horizontal',
+        size: 'small',
+        color: 'blue',
+        shape: 'rect',
+        label: 'paypal',
+        tagline: 'false',
+        fundingicons: 'true',
+        },
+        funding: {
+          allowed: [ paypal.FUNDING.CARD ],
+          disallowed: [ paypal.FUNDING.CREDIT ]
+        },
     createOrder: function(data, actions) {
       return actions.order.create({
         purchase_units: [{
@@ -276,7 +289,7 @@
         data: JSON.stringify(carrinho),
        success: function(data) {
            localStorage.clear();
-           window.location.href = '../login';
+           window.location.href = '../login/minhaconta';
        }
     });
       });
@@ -297,16 +310,16 @@ $(".finalizarcompra").on("click", function (e) {
     var token = $("meta[name='_csrf']").attr("content");
     
     $.ajax({
-     type: "POST",
-     headers: {"X-CSRF-TOKEN": token},
-     url: "/produto/checkout",
-     contentType: 'application/json',
-     data: JSON.stringify(carrinho),
-    success: function(data) {
-        localStorage.clear();
-        window.location.href = '../login/minhaconta';
-    }
-});
+        type: "POST",
+        headers: {"X-CSRF-TOKEN": token},
+        url: "/produto/checkout",
+        contentType: 'application/json',
+        data: JSON.stringify(carrinho),
+       success: function(data) {
+           localStorage.clear();
+           window.location.href = '../login/minhaconta';
+       }
+    });
 });
 
 $(".selecionaboleto").on("click", function (e) {

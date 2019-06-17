@@ -15,18 +15,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "usuario")
-/*@FieldMatch.List({
-    @FieldMatch(
-            first = "hashSenha",
-            second = "csenha",
-            message = "Confirmação de senha não bate!"
-    ),
-    @FieldMatch(
-            first = "email",
-            second = "cemail",
-            message = "Confirmação de email não bate!"
-    )
-})*/
+
 public class Usuario implements UserDetails {
 
     @Id

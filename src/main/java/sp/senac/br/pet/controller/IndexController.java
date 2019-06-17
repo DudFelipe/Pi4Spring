@@ -32,4 +32,13 @@ public class IndexController {
 
         return mv;
     }
+    
+    @GetMapping("/sobrenos")
+    public ModelAndView sobrenos(){      
+
+        ModelAndView mv = new ModelAndView("sobre_nos");
+
+        return mv;
+    }
+    
 }

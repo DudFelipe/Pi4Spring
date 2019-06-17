@@ -82,7 +82,7 @@
                                 <div class="product-topbar d-flex align-items-center justify-content-between">
                                     <!-- Total Products -->
                                     <div class="total-products">
-                                        <p><span id="produtos-encontrados">2</span> produtos encontrados</p>
+                                        <p><span id="produtos-encontrados">1</span> produtos encontrados</p>
                                     </div>
                                 </div>
                             </div>
@@ -102,6 +102,7 @@
                                     
                                     <div class="product-description">
                                         <span class="marca-produto" th:text="${produto.fabricante}"></span>
+                                        <span class="estoque-produto" th:text="'(Estoque: ' + ${produto.estoque} + ')'"></span>
                                         <span class="categoria-produto" th:text="${produto.idCategoria.nome}"></span>
                                         <span class="id-produto" style="display: none" th:text="${produto.idProduto}"></span>
 
@@ -144,11 +145,19 @@
             var nome = $(this).closest(".product-description").find(".nome-produto").html();
             var preco = $(this).closest(".product-description").find(".preco-prod").html();
             var id = $(this).closest(".product-description").find(".id-produto").html();
+            var estoque = $(this).closest(".product-description").find(".estoque-produto").html().replace("(Estoque: ", "").replace(")", "");
+            
             
             var novoProduto = true;
             for (var i = 0; i < carrinho["produtos"].length; i++) {
                 if(carrinho["produtos"][i].id == id) {
                     novoProduto = false;
+                    
+                    if(carrinho["produtos"][i].quantidade+1 > estoque) {
+                        alert("Não temos estoque suficiente para adicionar o seu item no carrinho!");
+                        return;
+                    }
+                    
                     carrinho["produtos"][i].quantidade += 1;
                     break;
                 }
@@ -172,4 +181,10 @@
             $("#essenceCartBtn").click();
 
         });
+        
+        $( document ).ready(function() {
+            $("#produtos-encontrados").html($("#lista-produtos > div").length);
+            
+        });
+        
 </script>

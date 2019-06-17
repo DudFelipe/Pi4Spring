@@ -39,7 +39,12 @@ public class BackofficeController {
 
     @GetMapping
     public ModelAndView index(){
-        ModelAndView mv = new ModelAndView("indexBackoffice");
+        ModelAndView mv = new ModelAndView("listagemProdutosBackOffice");
+        List<Produto> produtos = produtoRepository.findAll();
+
+        mv.addObject("produtos", produtos);
+
+
         return mv;
     }
 
@@ -170,23 +175,37 @@ public class BackofficeController {
     }
 
     @PostMapping("/adicionar")
-    public ModelAndView adicionar(Produto p){
-        ModelAndView mv = new ModelAndView("redirect:/admin");
+    public ModelAndView adicionar(
+           @ModelAttribute("produto") @Valid Produto p, BindingResult bindingResult){
 
-        produtoRepository.save(p);
+        if(bindingResult.hasErrors()){
+            System.out.println("Erros");
+            System.out.println(bindingResult);
+            List<Categoria> categorias = categoriaRepository.findAll();
+            return new ModelAndView("cadastroProduto").addObject("categorias", categorias).addObject("produto", p);
+        }
+        else {
+            ModelAndView mv = new ModelAndView("redirect:/admin");
 
-        List<Produto> produtos = produtoRepository.findAll();
+            p.setPrecoDesconto(p.getPreco() - (p.getPreco() * ((double) p.getDesconto() / 100)));
 
-        mv.addObject("produtos", produtos);
+            produtoRepository.save(p);
 
-        mv.addObject("insert", true);
+            List<Produto> produtos = produtoRepository.findAll();
 
-        return mv;
+            mv.addObject("produtos", produtos);
+
+            mv.addObject("insert", true);
+
+            return mv;
+        }
     }
 
     @GetMapping("/alterar/{id}")
     public ModelAndView alterar(@PathVariable int id){
-        ModelAndView mv = new ModelAndView("cadastroProduto");
+        
+
+         ModelAndView mv = new ModelAndView("cadastroProduto");
 
         List<Categoria> categorias = categoriaRepository.findAll();
         Produto p = produtoRepository.getOne(id);
@@ -195,14 +214,23 @@ public class BackofficeController {
         mv.addObject("categorias", categorias);
 
         return mv;
+        
     }
 
     @PostMapping("/alterar/{id}")
-    public ModelAndView alterar(@PathVariable int id, Produto p){
+    public ModelAndView alterar(@PathVariable int id, @ModelAttribute("produto")  @Valid Produto p,
+                                       BindingResult bindingResult){
+        
+        if(bindingResult.hasErrors())
+        {
+            return new ModelAndView("cadastroProduto").addObject("produto", p);
+        } else {
         ModelAndView mv = new ModelAndView("redirect:/admin/listagemProdutosBackOffice");
 
         Produto prod = produtoRepository.getOne(id);
 
+        double precoDesconto = p.getPreco() - (p.getPreco() * ((double)p.getDesconto() / 100));
+        int precoDescontoRounded = (int) Math.round(precoDesconto);
         prod.setDescricao(p.getDescricao());
         prod.setAtivo(p.getAtivo());
         prod.setNome(p.getNome());
@@ -211,10 +239,16 @@ public class BackofficeController {
         prod.setIdCategoria((p.getIdCategoria()));
         prod.setModelo(p.getModelo());
         prod.setCodigodebarras(p.getCodigodebarras());
+        prod.setDesconto(p.getDesconto());
+        prod.setPrecoDesconto(new Double(precoDescontoRounded));
+
+        System.out.println("\n\n" + prod.getPrecoDesconto() + "\n\n");
 
         produtoRepository.save(prod);
 
         return mv;
+        }
+        
     }
 
     @GetMapping("/excluir/{id}")
@@ -223,7 +257,9 @@ public class BackofficeController {
         ModelAndView mv = new ModelAndView("redirect:/admin/listagemProdutosBackOffice");
 
         Produto p = produtoRepository.getOne(id);
-        produtoRepository.delete(p);
+        p.setAtivo(0);
+
+        produtoRepository.save(p);
 
         mv.addObject("sucesso", true);
 
@@ -264,6 +300,17 @@ public class BackofficeController {
         pedidoRepository.save(p);
 
         return mv;
+    }
+    
+    @GetMapping("/listagemPedidosBackOffice/detalhar/{id}")
+    public ModelAndView detalhaPedido(@PathVariable int id){
+        ModelAndView mv = new ModelAndView("detalhepedidobackoffice");
+
+        Pedido p = pedidoRepository.getOne(id);
+
+      
+
+        return mv.addObject("pedido", p);
     }
 
 }

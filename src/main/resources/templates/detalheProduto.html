@@ -22,6 +22,7 @@
             <p class="product-desc" th:text="${produto.descricao}"></p>
             
             <span class="marca-produto" style="display: none" th:text="${produto.fabricante}"></span>
+            <span class="estoque-produto" th:text="'(Estoque: ' + ${produto.estoque} + ')'"></span>
             <span class="categoria-produto" style="display: none" th:text="${produto.idCategoria.nome}"></span>
             <span class="id-produto" style="display: none" th:text="${produto.idProduto}"></span>
 
@@ -44,11 +45,18 @@
             var nome = $(this).closest(".single_product_desc").find(".nome-produto").html();
             var preco = $(this).closest(".single_product_desc").find(".product-price").html(); //ok
             var id = $(this).closest(".single_product_desc").find(".id-produto").html(); //ok
+            var estoque = $(this).closest(".single_product_desc").find(".estoque-produto").html().replace("(Estoque: ", "").replace(")", "");
 
             var novoProduto = true;
             for (var i = 0; i < carrinho["produtos"].length; i++) {
                 if(carrinho["produtos"][i].id == id) {
                     novoProduto = false;
+                    
+                    if(carrinho["produtos"][i].quantidade+1 > estoque) {
+                        alert("Não temos estoque suficiente para adicionar o seu item no carrinho!");
+                        return;
+                    }
+                    
                     carrinho["produtos"][i].quantidade += 1;
                     break;
                 }

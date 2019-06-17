@@ -6,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Pet Tades</title>
-    <link th:href="@{/css/core-style.css}" href="../static/css/core-style.css" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link th:href="@{/css/core-style.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
     <header class="header_area"> <!-- Menu Principal -->
@@ -25,7 +26,7 @@
                         <ul>
                             <li><a th:href="@{/index}">Home</a></li>
                             <li><a th:href="@{/produto}">Todos Produtos</a></li>
-                            <li><a href="#">Sobre nós</a></li>
+                            <li><a th:href="@{/index/sobrenos}">Sobre nós</a></li>
                         </ul>
                     </div>
                 </div>
@@ -88,7 +89,7 @@
                             <ul>
                                 <li><a th:href="@{/produto}">Todos produtos</a></li>
 
-                                <li><a href="#">Sobre</a></li>
+                                <li><a th:href="@{/index/sobrenos}">Sobre</a></li>
                             </ul>
                         </div>
                     </div>

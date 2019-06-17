@@ -1,8 +1,16 @@
 package sp.senac.br.pet.model;
 
+import org.springframework.format.annotation.NumberFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Set;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "produto")
@@ -13,21 +21,50 @@ public class Produto implements Serializable {
     @Column
     private int idProduto;
 
+    @NotBlank(message = "Preencha o nome do produto!")
+    @Size(max = 60)
     private String nome;
+    
+    @NotNull(message = "Preencha o preço do produto!")
+    @NumberFormat(style = NumberFormat.Style.NUMBER)
+    @Min(value = 0, message = "O preço não pode ser negativo!")
     private Double preco;
+
+    @NotEmpty(message = "Preencha o fabricante!")
+    @Size(max = 60)
     private String fabricante;
+
+    @NotNull(message = "Preencha o estoque!")
+    @NumberFormat(style = NumberFormat.Style.NUMBER)
+    @Min(value = 0, message = "O estoque não pode ser negativo!")
     private int estoque;
+
+    @NotEmpty(message = "Preencha o modelo!")
+    @Size(max = 60)
     private String modelo;
+
+    @NotEmpty(message = "Preencha o código de barras!")
+    @Size(max = 45)
     private String codigodebarras;
+
+    @NotEmpty(message = "Preencha a descrição!")
+    @Size(max = 150)
     private String descricao;
+
+    @NotNull(message = "Preencha o campo desconto")
+    @NumberFormat(style = NumberFormat.Style.NUMBER)
+    @Min(value = 0, message = "O desconto não pode ser negativo!")
+    @Max(value = 100, message = "O desconto não pode ultrapassar 100%!")
     private int desconto;
+
     private Double precoDesconto;
 
     private int ativo;
 
     @ManyToMany(mappedBy = "produtos", fetch = FetchType.LAZY)
     private Set<Pedido> pedidos;
-    
+
+    @NotNull(message = "Selecione uma categoria!")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "idCategoria", nullable = false
@@ -49,8 +86,6 @@ public class Produto implements Serializable {
     public void setPrecoDesconto(Double precoDesconto) {
         this.precoDesconto = precoDesconto;
     }
-    
-    
 
     public int getIdProduto() {
         return idProduto;
@@ -115,7 +150,6 @@ public class Produto implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
 
     public Categoria getIdCategoria() {
         return idCategoria;
